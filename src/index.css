@@ -120,6 +120,12 @@
   cursor: not-allowed !important;
 }
 
+/* Hide ConvertKit success popup overlay after submission */
+.formkit-overlay,
+.formkit-modal {
+  display: none !important;
+}
+
 /* Success message */
 .convertkit-embed .formkit-alert-success,
 .convertkit-embed [data-element="messages"] .formkit-alert,
