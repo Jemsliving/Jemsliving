@@ -222,7 +222,7 @@ export default function App() {
       </nav>
 
       {/* Hero Section - Redesigned & Focused */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-24">
+      <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-24 pb-24 md:pb-0">
         <div className="max-w-4xl mx-auto w-full text-center">
           {/* THE WORLD EXPANDS - sequel block */}
           <motion.div
@@ -260,7 +260,7 @@ export default function App() {
                   Subscribe to receive release updates, exclusive previews, and early access announcements.
                 </p>
 
-                <form onSubmit={handleHeroNewsletterSubmit} className="mx-auto flex w-full max-w-md flex-col sm:flex-row items-center justify-center gap-3">
+                <form onSubmit={handleHeroNewsletterSubmit} className="mx-auto flex w-full max-w-md flex-col sm:flex-row items-center justify-center gap-3 p-2 md:p-0">
                 <input
                   type="email"
                   required
