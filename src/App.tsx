@@ -8,7 +8,6 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { 
   BookOpen, 
   ExternalLink, 
-  Instagram, 
   ChevronRight,
   Send,
   Music,
@@ -454,29 +453,35 @@ export default function App() {
           </div>
           
           <div className="space-y-8">
-            <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-brand-accent block">The Author</span>
             <h2 className="text-4xl md:text-5xl font-display leading-tight text-brand-text">About Jemima</h2>
-            <blockquote className="text-xl md:text-2xl font-serif italic border-l border-brand-accent pl-8 py-2 text-brand-text/80">
-              “From post-apocalyptic love to unapologetic self-belief, my books explore survival in all its forms.”
-            </blockquote>
-            <div className="space-y-6 text-sm leading-relaxed opacity-60">
+            <p className="text-xl md:text-2xl font-serif italic text-brand-text/80">
+              From post-apocalyptic love to unapologetic self-belief, my work explores survival in all its forms.
+            </p>
+            <div className="space-y-6 text-sm leading-relaxed text-brand-accent/90">
               <p>
-                I am an independent author who chose to self-publish in order to maintain full creative control and long-term ownership of my work. I began writing my debut novel <span className="italic text-brand-text">An Empty World With You</span> at eighteen and spent five years refining it before releasing it on my own terms.
+                I began writing <span className="italic text-brand-text">An Empty World With You</span> at eighteen with the ambition of one day publishing a novel. I did not know if it was good. I did not know if it would ever become anything. Life moved forward, doubts grew louder, and I let time pass. But I never let go of the dream.
               </p>
               <p>
-                With my second book, <span className="italic text-brand-text">The Main Character Playbook</span>, I moved from fiction into lived experience. It combines personal reflection with practical guidance, encouraging readers to build confidence and step fully into their own narrative.
+                Five years later, I returned to that manuscript. Written during a dark and uncertain period of the pandemic, it carried loneliness, hope, and quiet resilience within it. I rewrote it, reshaped it, and transformed it into the book that exists today. It remains deeply personal to me because it balances darkness with hope, and confronts solitude, something I have always struggled with.
               </p>
               <p>
-                Self-publishing has allowed me to build directly, intentionally, and independently. Across genres, my work centers on growth, resilience, and the courage to become.
+                During that same period, I wrote an entirely different kind of book.
               </p>
-            </div>
-            <div className="flex gap-6 pt-4">
-              <a href="https://instagram.com/Authorjems" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full hover:opacity-90 transition-all" style={{ background: 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)' }} aria-label="Instagram">
-                <Instagram size={18} className="text-white" />
-              </a>
-              <a href="https://tiktok.com/@authorjems" target="_blank" rel="noopener noreferrer" className="p-3 bg-black border border-white/10 rounded-full hover:border-white/20 transition-all" aria-label="TikTok">
-                <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="#00F2EA"/><path d="M19.59 6.69v3.4a8.16 8.16 0 0 1-4.77-1.52v7a6.34 6.34 0 0 1-10.86 4.43 6.34 6.34 0 0 1 10.86-4.43v-7a6.84 6.84 0 0 0 1 .05 2.93 2.93 0 0 0-.88-.13 2.89 2.89 0 0 0-2.31 4.64 2.89 2.89 0 0 0 5.2-1.74V2h3.45v.44a4.83 4.83 0 0 0 3.77 4.25 4.85 4.85 0 0 0 1 .1z" fill="#FF0050"/></svg>
-              </a>
+              <p>
+                <span className="italic text-brand-text">The Main Character Playbook</span> emerged from lived experience. I have struggled with social anxiety, panic attacks, and periods of deep self-doubt. For a long time, I hesitated to take up space, even though I believe everyone deserves to. That book was not written from a place of having everything figured out, but from the decision to stop waiting for change and instead create it.
+              </p>
+              <p>
+                It combines reflection with practical tools I used when life felt at its heaviest. My intention as an author is not simply to tell stories, but to move people, to stir something real, to make someone feel less alone, and at times, to give them the push to keep going.
+              </p>
+              <p>
+                That is my brand. That is my work.
+              </p>
+              <p>
+                Publishing something born from your inner world is terrifying. The only reason I continue is because of the readers who reach out, who share their reflections, and who leave their beautiful reviews. Their words remind me that stories matter.
+              </p>
+              <p>
+                If you are one of them, thank you &lt;3
+              </p>
             </div>
           </div>
         </div>
