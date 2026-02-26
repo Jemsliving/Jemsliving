@@ -4,6 +4,7 @@
  */
 
 import { motion } from "motion/react";
+import { Routes, Route, Link } from "react-router-dom";
 import { 
   BookOpen, 
   Mail, 
@@ -11,7 +12,6 @@ import {
   Instagram, 
   ChevronRight,
   Send,
-  Sparkles,
   Music,
   X,
   Quote
@@ -22,6 +22,7 @@ import emptyWorldCover from "./assets/An empty world with you.jpeg";
 import mainCharacterCover from "./assets/8786A8EB-A81E-4D32-A22E-D1D279502FD6_1_201_a.jpeg";
 import jemimaPortrait from "./assets/Jemima ceesay.jpeg";
 import goodreadsLogo from "./assets/goodreads-logo.png";
+import Publishing from "./pages/Publishing";
 
 // Types
 interface Book {
@@ -130,7 +131,7 @@ export default function App() {
               <div>
                 <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-gold mb-1 block">{selectedBook.genre}</span>
                 <h2 className="text-2xl md:text-4xl font-display text-brand-text leading-tight">{selectedBook.title}</h2>
-                <p className="text-base font-serif italic text-brand-accent mt-1">{selectedBook.subtitle}</p>
+                <p className="text-lg font-serif font-medium text-brand-accent mt-1">{selectedBook.subtitle}</p>
               </div>
 
               <div className="space-y-2 -mt-1">
@@ -181,7 +182,7 @@ export default function App() {
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-brand-bg border-b border-white/15 shadow-md">
-        <div className="flex items-center gap-4">
+        <a href="#hero" className="flex items-center gap-4 hover:opacity-90 transition-opacity">
           <div className="w-11 h-11 rounded-full overflow-hidden bg-white flex items-center justify-center p-1.5 ring-1 ring-white/20 shadow-inner">
             <img
               src={logo}
@@ -193,21 +194,24 @@ export default function App() {
             <span className="font-serif text-base md:text-lg tracking-[0.18em] uppercase leading-tight text-white font-semibold antialiased">Jemsliving Publishing</span>
             <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-white/85 mt-1 italic antialiased">Built by an author, for authors.</span>
           </div>
-        </div>
+        </a>
         <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
           <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
         </div>
         <div className="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <a href="#books" className="hover:text-white transition-colors antialiased">Books</a>
           <a href="#about" className="hover:text-white transition-colors antialiased">About</a>
-          <a href="#publishing" className="hover:text-white transition-colors antialiased">Publishing</a>
+          <Link to="/publishing" className="hover:text-white transition-colors antialiased">Publishing</Link>
           <a href="#connect" className="hover:text-white transition-colors antialiased">Connect</a>
           <a href="#newsletter" className="hover:text-white transition-colors antialiased">Newsletter</a>
         </div>
       </nav>
 
+      <Routes>
+        <Route path="/publishing" element={<Publishing />} />
+        <Route path="/" element={<>
       {/* Hero Section - Redesigned & Focused */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-24 pb-24 md:pb-0">
+      <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-24 pb-24 md:pb-0">
         <div className="max-w-4xl mx-auto w-full text-center">
           {/* THE WORLD EXPANDS - sequel block */}
           <motion.div
@@ -320,7 +324,7 @@ export default function App() {
                   </span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-display text-brand-text">{book.title}</h3>
-                <p className="text-base md:text-lg font-serif italic text-brand-gold">{book.subtitle}</p>
+                <p className="text-lg md:text-xl font-serif font-medium text-white/95 tracking-wide">{book.subtitle}</p>
                 <div className={book.id === 'main-character' ? 'flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6' : ''}>
                   <p className={`text-sm leading-relaxed text-brand-accent/85 ${book.id === 'main-character' ? 'line-clamp-2 sm:line-clamp-3 flex-1 min-w-0' : 'line-clamp-3'}`}>
                     {book.description}
@@ -408,65 +412,17 @@ export default function App() {
         </div>
       </section>
 
-      {/* Publishing Section - Cohesive Dark */}
+      {/* Publishing Section - Teaser */}
       <section id="publishing" className="py-24 px-6 bg-brand-bg text-brand-text overflow-hidden relative border-t border-white/5">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[8px] uppercase tracking-[0.3em] text-brand-gold">
-                <Sparkles size={12} /> Soft Launch
-              </div>
-              <div>
-                <h2 className="text-4xl md:text-6xl font-display leading-none">Jemsliving Publishing</h2>
-                <p className="text-lg font-serif italic text-brand-gold mt-3">Built by an author, for authors.</p>
-              </div>
-              
-              <div className="space-y-6 text-sm leading-relaxed text-brand-accent/90">
-                <p>
-                  Jemsliving Publishing is an international English-language imprint currently entering its inaugural publishing cycle. All titles are published under the Jemsliving Publishing name.
-                </p>
-                <p>
-                  We focus on emotionally intense, cinematic fiction with strong relational storytelling and global appeal. Our catalog is intentionally limited—we publish a highly selective number of titles each year to protect quality, positioning, and long-term author growth.
-                </p>
-                <p>
-                  This is a partnership-driven, author-first model designed to offer significantly stronger royalty terms than traditional publishing while providing strategic direction, global digital distribution, and curated launch structure.
-                </p>
-                <p className="font-serif italic text-brand-gold">
-                  We are not a volume-based house. We are selective by design.
-                </p>
-              </div>
-            </div>
-
-            <div className="glass-card p-10 rounded-3xl border-white/10">
-              <h3 className="text-2xl font-display mb-6">Submission Criteria</h3>
-              <ul className="space-y-3 text-sm text-brand-accent/90 mb-10">
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> English-language manuscript</li>
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Clear commercial hook</li>
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Strong emotional core</li>
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Willingness to participate in marketing</li>
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Long-term publishing ambition</li>
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> 21+ years of age</li>
-              </ul>
-
-              <h3 className="text-2xl font-display mb-6">How to Submit</h3>
-              <p className="text-sm text-brand-accent/90 mb-6 leading-relaxed">
-                Initial submissions are by consideration only. We review a limited number of submissions per cycle.
-              </p>
-              <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-accent/70 mb-4">Please include in your submission:</p>
-              <ul className="space-y-2 text-sm text-brand-accent/90 mb-8">
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> A short project overview (max 1,500 characters)</li>
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Target audience and genre positioning</li>
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Current audience size, if applicable</li>
-                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Author bio and previous publication history</li>
-              </ul>
-              <p className="text-sm text-brand-accent/80 mb-8 leading-relaxed">
-                Selected projects will be invited to submit the full manuscript for review.
-              </p>
-              <a href="mailto:Jemslivingg@gmail.com?subject=Manuscript%20Submission%20%E2%80%93%20Jemsliving%20Publishing" className="inline-flex items-center gap-2 w-full justify-center py-4 bg-brand-text text-brand-bg font-bold uppercase text-[9px] tracking-[0.3em] rounded-lg hover:bg-brand-gold transition-colors">
-                Submit via Email <Send size={14} />
-              </a>
-            </div>
-          </div>
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-display leading-tight">Jemsliving Publishing</h2>
+          <p className="text-lg font-serif italic text-brand-gold mt-4">Built by an author, for authors.</p>
+          <p className="text-base text-brand-accent/90 mt-6 leading-relaxed">
+            A selective, partnership-driven imprint for emotionally intense, cinematic fiction. Strategic structure. Creative freedom. Long-term author growth.
+          </p>
+          <Link to="/publishing" className="inline-flex items-center gap-2 mt-8 px-8 py-3 bg-brand-text text-brand-bg font-bold uppercase text-[10px] tracking-widest rounded-lg hover:bg-brand-gold transition-colors">
+            Learn more about Jemsliving Publishing <ChevronRight size={14} />
+          </Link>
         </div>
       </section>
 
@@ -589,6 +545,8 @@ export default function App() {
           </div>
         </div>
       </footer>
+        </>} />
+      </Routes>
     </div>
   );
 }
