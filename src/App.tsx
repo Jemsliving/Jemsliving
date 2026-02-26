@@ -231,6 +231,7 @@ export default function App() {
               </div>
 
               <div className="mx-auto max-w-xl space-y-8 md:space-y-10 text-center">
+                <h1 className="font-serif text-brand-bg uppercase text-sm md:text-base tracking-[0.3em] font-semibold">Jemima Ceesay</h1>
                 <div className="mx-auto h-px w-12 bg-brand-bg/25" />
 
                 <div className="space-y-5 md:space-y-6">
