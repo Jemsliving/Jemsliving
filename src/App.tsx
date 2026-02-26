@@ -260,25 +260,28 @@ export default function App() {
                   Subscribe to receive release updates, exclusive previews, and early access announcements.
                 </p>
 
-                <form onSubmit={handleHeroNewsletterSubmit} className="mx-auto flex w-full max-w-md flex-col sm:flex-row items-center justify-center gap-3 p-2 md:p-0">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email address"
-                  className="flex-1 rounded-full border border-brand-bg/15 bg-white px-5 py-3 text-sm text-brand-bg placeholder:text-brand-bg/40 focus:outline-none focus:ring-2 focus:ring-brand-bg/15"
-                />
-                <button
-                  type="submit"
-                  disabled={formStatus === "submitting" || formStatus === "success"}
-                  className="shrink-0 rounded-full border border-[#1a4a5c]/40 bg-[#1a4a5c] px-5 py-3 text-sm font-medium text-white hover:bg-[#234f5f] hover:border-[#234f5f] transition-colors disabled:opacity-50"
-                >
-                  {formStatus === "idle" && "Receive Updates"}
-                  {formStatus === "submitting" && "..."}
-                  {formStatus === "success" && "Done"}
-                </button>
-              </form>
+                {formStatus === "success" ? (
+                  <p className="text-brand-bg font-serif italic text-lg">Welcome to Jemsliving 💌 Thank you for wanting to be part of this journey.</p>
+                ) : (
+                  <form onSubmit={handleHeroNewsletterSubmit} className="mx-auto flex w-full max-w-md flex-col sm:flex-row items-center justify-center gap-3 p-2 md:p-0">
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Email address"
+                      className="flex-1 rounded-full border border-brand-bg/15 bg-white px-5 py-3 text-sm text-brand-bg placeholder:text-brand-bg/40 focus:outline-none focus:ring-2 focus:ring-brand-bg/15"
+                    />
+                    <button
+                      type="submit"
+                      disabled={formStatus === "submitting"}
+                      className="shrink-0 rounded-full border border-[#1a4a5c]/40 bg-[#1a4a5c] px-5 py-3 text-sm font-medium text-white hover:bg-[#234f5f] hover:border-[#234f5f] transition-colors disabled:opacity-50"
+                    >
+                      {formStatus === "idle" && "Receive Updates"}
+                      {formStatus === "submitting" && "..."}
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </motion.div>
