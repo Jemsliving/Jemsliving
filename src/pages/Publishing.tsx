@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Send, DollarSign, Target, Globe, Rocket, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -28,6 +28,10 @@ const Section = ({ id, children, className = "" }: { id?: string; children: Reac
 );
 
 export default function Publishing() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
