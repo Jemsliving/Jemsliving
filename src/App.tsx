@@ -97,6 +97,8 @@ export default function App() {
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+    } else if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [location.pathname, location.hash]);
   const [email, setEmail] = useState("");
@@ -195,7 +197,17 @@ export default function App() {
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-brand-bg border-b border-white/15 shadow-md">
-        <Link to="/" className="flex items-center gap-4 hover:opacity-90 transition-opacity">
+        <Link
+          to="/"
+          className="flex items-center gap-4 hover:opacity-90 transition-opacity"
+          onClick={(e) => {
+            if (location.pathname === "/") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              if (location.hash) window.history.replaceState(null, "", "/");
+            }
+          }}
+        >
           <div className="w-11 h-11 rounded-full overflow-hidden bg-white flex items-center justify-center p-1.5 ring-1 ring-white/20 shadow-inner">
             <img
               src={logo}
