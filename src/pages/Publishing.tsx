@@ -58,7 +58,7 @@ export default function Publishing() {
             ← Back to home
           </Link>
           <h1 className="text-4xl md:text-6xl font-display leading-tight mt-8">Jemsliving Publishing</h1>
-          <p className="text-xl font-serif italic text-brand-gold mt-4">Built by an author, for authors.</p>
+          <p className="text-xl md:text-2xl font-serif italic text-brand-gold mt-4">Built by an author, for authors.</p>
         </div>
       </header>
 
@@ -72,7 +72,7 @@ export default function Publishing() {
             <button
               key={id}
               onClick={() => scrollToSection(id)}
-              className="shrink-0 px-4 py-2 rounded-full border border-black/10 bg-white text-xs font-medium text-black/80 hover:bg-black/5 transition-colors"
+              className="shrink-0 px-4 py-2 rounded-full border border-black/10 bg-white text-xs font-medium text-black/80 hover:bg-brand-gold hover:text-black hover:border-brand-gold transition-colors"
             >
               {label}
             </button>

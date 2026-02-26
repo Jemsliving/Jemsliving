@@ -4,7 +4,7 @@
  */
 
 import { motion } from "motion/react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { 
   BookOpen, 
   Mail, 
@@ -86,6 +86,8 @@ const BOOKS: Book[] = [
 ];
 
 export default function App() {
+  const location = useLocation();
+  const isPublishingPage = location.pathname === "/publishing";
   const [email, setEmail] = useState("");
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -182,7 +184,7 @@ export default function App() {
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-brand-bg border-b border-white/15 shadow-md">
-        <a href="#hero" className="flex items-center gap-4 hover:opacity-90 transition-opacity">
+        <Link to="/" className="flex items-center gap-4 hover:opacity-90 transition-opacity">
           <div className="w-11 h-11 rounded-full overflow-hidden bg-white flex items-center justify-center p-1.5 ring-1 ring-white/20 shadow-inner">
             <img
               src={logo}
@@ -190,14 +192,20 @@ export default function App() {
               className="w-full h-full object-contain"
             />
           </div>
-          <div className="flex flex-col">
-            <span className="font-serif text-base md:text-lg tracking-[0.18em] uppercase leading-tight text-white font-semibold antialiased">Jemsliving Publishing</span>
-            <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-white/85 mt-1 italic antialiased">Built by an author, for authors.</span>
+          {isPublishingPage ? (
+            <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
+          ) : (
+            <div className="flex flex-col">
+              <span className="font-serif text-base md:text-lg tracking-[0.18em] uppercase leading-tight text-white font-semibold antialiased">Jemsliving Publishing</span>
+              <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-white/85 mt-1 italic antialiased">Built by an author, for authors.</span>
+            </div>
+          )}
+        </Link>
+        {!isPublishingPage && (
+          <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
+            <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
           </div>
-        </a>
-        <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
-          <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
-        </div>
+        )}
         <div className="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <a href="#books" className="hover:text-white transition-colors antialiased">Books</a>
           <a href="#about" className="hover:text-white transition-colors antialiased">About</a>
