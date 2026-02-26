@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const SECTIONS = [
   { id: "core", label: "The Core" },
   { id: "founder", label: "Founder" },
-  { id: "editorial", label: "Editorial Collaboration" },
+  { id: "editorial", label: "Collaboration" },
   { id: "about", label: "About the Imprint" },
   { id: "model", label: "The Model" },
   { id: "criteria", label: "Submission Criteria" },

@@ -7,7 +7,6 @@ import { motion } from "motion/react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { 
   BookOpen, 
-  Mail, 
   ExternalLink, 
   Instagram, 
   ChevronRight,
@@ -16,13 +15,14 @@ import {
   X,
   Quote
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./assets/logo.png";
 import emptyWorldCover from "./assets/An empty world with you.jpeg";
 import mainCharacterCover from "./assets/8786A8EB-A81E-4D32-A22E-D1D279502FD6_1_201_a.jpeg";
 import jemimaPortrait from "./assets/Jemima ceesay.jpeg";
 import goodreadsLogo from "./assets/goodreads-logo.png";
 import Publishing from "./pages/Publishing";
+import Privacy from "./pages/Privacy";
 
 // Types
 interface Book {
@@ -88,6 +88,17 @@ const BOOKS: Book[] = [
 export default function App() {
   const location = useLocation();
   const isPublishingPage = location.pathname === "/publishing";
+  const isStandalonePage = isPublishingPage || location.pathname === "/privacy";
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [location.pathname, location.hash]);
   const [email, setEmail] = useState("");
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -192,7 +203,7 @@ export default function App() {
               className="w-full h-full object-contain"
             />
           </div>
-          {isPublishingPage ? (
+          {isStandalonePage ? (
             <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
           ) : (
             <div className="flex flex-col">
@@ -201,22 +212,23 @@ export default function App() {
             </div>
           )}
         </Link>
-        {!isPublishingPage && (
+        {!isStandalonePage && (
           <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
             <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
           </div>
         )}
         <div className="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
-          <a href="#books" className="hover:text-white transition-colors antialiased">Books</a>
-          <a href="#about" className="hover:text-white transition-colors antialiased">About</a>
+          <Link to="/#books" className="hover:text-white transition-colors antialiased">Books</Link>
+          <Link to="/#about" className="hover:text-white transition-colors antialiased">About</Link>
           <Link to="/publishing" className="hover:text-white transition-colors antialiased">Publishing</Link>
-          <a href="#connect" className="hover:text-white transition-colors antialiased">Connect</a>
-          <a href="#newsletter" className="hover:text-white transition-colors antialiased">Newsletter</a>
+          <Link to="/#connect" className="hover:text-white transition-colors antialiased">Connect</Link>
+          <Link to="/#newsletter" className="hover:text-white transition-colors antialiased">Newsletter</Link>
         </div>
       </nav>
 
       <Routes>
         <Route path="/publishing" element={<Publishing />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="/" element={<>
       {/* Hero Section - Redesigned & Focused */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-24 pb-24 md:pb-0">
@@ -424,7 +436,7 @@ export default function App() {
       <section id="publishing" className="py-24 px-6 bg-brand-bg text-brand-text overflow-hidden relative border-t border-white/5">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-display leading-tight">Jemsliving Publishing</h2>
-          <p className="text-lg font-serif italic text-brand-gold mt-4">Built by an author, for authors.</p>
+          <p className="text-xl font-serif italic text-brand-gold mt-4">Built by an author, for authors.</p>
           <p className="text-base text-brand-accent/90 mt-6 leading-relaxed">
             A selective, partnership-driven imprint for emotionally intense, cinematic fiction. Strategic structure. Creative freedom. Long-term author growth.
           </p>
@@ -472,54 +484,21 @@ export default function App() {
             <h2 className="text-2xl md:text-3xl font-display text-white">Connect with Jemima</h2>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-3">
-            <a href="mailto:Jemslivingg@gmail.com" className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all">
-              <div className="p-2 rounded-lg bg-[#EA4335]/20 shrink-0">
-                <svg className="w-4 h-4 text-[#EA4335]" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              </div>
-              <div className="text-left min-w-0">
-                <p className="text-[9px] uppercase tracking-widest font-bold text-brand-gold">Email</p>
-                <p className="text-xs text-white truncate">Jemslivingg@gmail.com</p>
-              </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="mailto:Jemslivingg@gmail.com" className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all" title="Email" aria-label="Email">
+              <svg className="w-5 h-5 text-[#EA4335]" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             </a>
 
-            <a href="https://www.goodreads.com/author/show/56995964.Jemima_Ceesay?ref=nav_profile_l" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all">
-              <div className="shrink-0 w-8 h-8 flex items-center justify-center overflow-hidden rounded-lg">
-                <img src={goodreadsLogo} alt="Goodreads" className="w-full h-full object-contain" />
-              </div>
-              <div className="text-left min-w-0">
-                <p className="text-[9px] uppercase tracking-widest font-bold text-brand-gold">Goodreads</p>
-                <p className="text-xs text-white">Author profile</p>
-              </div>
+            <a href="https://www.goodreads.com/author/show/56995964.Jemima_Ceesay?ref=nav_profile_l" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all" title="Goodreads" aria-label="Goodreads">
+              <img src={goodreadsLogo} alt="" className="w-5 h-5 object-contain" />
             </a>
 
-            <a href="https://instagram.com/Authorjems" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all">
-              <div className="p-2 rounded-lg shrink-0" style={{ background: 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)' }}>
-                <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-              </div>
-              <div className="text-left min-w-0">
-                <p className="text-[9px] uppercase tracking-widest font-bold text-brand-gold">Instagram</p>
-                <p className="text-xs text-white">@Authorjems</p>
-              </div>
+            <a href="https://instagram.com/Authorjems" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all" title="Instagram @Authorjems" aria-label="Instagram">
+              <svg className="w-5 h-5 text-[#E4405F]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
 
-            <a href="https://tiktok.com/@authorjems" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all">
-              <div className="p-2 rounded-lg shrink-0 bg-black">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="#00F2EA"/><path d="M19.59 6.69v3.4a8.16 8.16 0 0 1-4.77-1.52v7a6.34 6.34 0 0 1-10.86 4.43 6.34 6.34 0 0 1 10.86-4.43v-7a6.84 6.84 0 0 0 1 .05 2.93 2.93 0 0 0-.88-.13 2.89 2.89 0 0 0-2.31 4.64 2.89 2.89 0 0 0 5.2-1.74V2h3.45v.44a4.83 4.83 0 0 0 3.77 4.25 4.85 4.85 0 0 0 1 .1z" fill="#FF0050"/></svg>
-              </div>
-              <div className="text-left min-w-0">
-                <p className="text-[9px] uppercase tracking-widest font-bold text-brand-gold">TikTok</p>
-                <p className="text-xs text-white">@Authorjems <span className="text-brand-accent/70">· booktok</span></p>
-              </div>
-            </a>
-            <a href="https://tiktok.com/@Jemsliving" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all">
-              <div className="p-2 rounded-lg shrink-0 bg-black">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="#00F2EA"/><path d="M19.59 6.69v3.4a8.16 8.16 0 0 1-4.77-1.52v7a6.34 6.34 0 0 1-10.86 4.43 6.34 6.34 0 0 1 10.86-4.43v-7a6.84 6.84 0 0 0 1 .05 2.93 2.93 0 0 0-.88-.13 2.89 2.89 0 0 0-2.31 4.64 2.89 2.89 0 0 0 5.2-1.74V2h3.45v.44a4.83 4.83 0 0 0 3.77 4.25 4.85 4.85 0 0 0 1 .1z" fill="#FF0050"/></svg>
-              </div>
-              <div className="text-left min-w-0">
-                <p className="text-[9px] uppercase tracking-widest font-bold text-brand-gold">TikTok</p>
-                <p className="text-xs text-white">@Jemsliving <span className="text-brand-accent/70">· more of Jemima</span></p>
-              </div>
+            <a href="https://tiktok.com/@authorjems" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all" title="TikTok @authorjems" aria-label="TikTok">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="#00F2EA"/><path d="M19.59 6.69v3.4a8.16 8.16 0 0 1-4.77-1.52v7a6.34 6.34 0 0 1-10.86 4.43 6.34 6.34 0 0 1 10.86-4.43v-7a6.84 6.84 0 0 0 1 .05 2.93 2.93 0 0 0-.88-.13 2.89 2.89 0 0 0-2.31 4.64 2.89 2.89 0 0 0 5.2-1.74V2h3.45v.44a4.83 4.83 0 0 0 3.77 4.25 4.85 4.85 0 0 0 1 .1z" fill="#FF0050"/></svg>
             </a>
           </div>
         </div>
@@ -542,14 +521,7 @@ export default function App() {
             <a href="#books" className="hover:text-brand-accent transition-colors">Books</a>
             <a href="#publishing" className="hover:text-brand-accent transition-colors">Publishing</a>
             <a href="#connect" className="hover:text-brand-accent transition-colors">Connect</a>
-            <a href="#" className="hover:text-brand-accent transition-colors">Privacy</a>
-          </div>
-
-          <div className="flex gap-6">
-            <a href="https://instagram.com/Authorjems" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-all" title="Instagram @Authorjems"><Instagram size={20} className="text-[#E4405F]" /></a>
-            <a href="https://tiktok.com/@authorjems" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-all" title="TikTok @authorjems"><svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="#00F2EA"/><path d="M19.59 6.69v3.4a8.16 8.16 0 0 1-4.77-1.52v7a6.34 6.34 0 0 1-10.86 4.43 6.34 6.34 0 0 1 10.86-4.43v-7a6.84 6.84 0 0 0 1 .05 2.93 2.93 0 0 0-.88-.13 2.89 2.89 0 0 0-2.31 4.64 2.89 2.89 0 0 0 5.2-1.74V2h3.45v.44a4.83 4.83 0 0 0 3.77 4.25 4.85 4.85 0 0 0 1 .1z" fill="#FF0050"/></svg></a>
-            <a href="https://www.goodreads.com/author/show/56995964.Jemima_Ceesay?ref=nav_profile_l" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-all" title="Goodreads"><img src={goodreadsLogo} alt="Goodreads" className="w-5 h-5 object-contain" /></a>
-            <a href="mailto:Jemslivingg@gmail.com" className="opacity-70 hover:opacity-100 transition-all" title="Email"><Mail size={20} className="text-[#EA4335]" /></a>
+            <Link to="/privacy" className="hover:text-brand-accent transition-colors">Privacy</Link>
           </div>
         </div>
       </footer>
