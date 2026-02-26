@@ -86,13 +86,10 @@ const BOOKS: Book[] = [
   }
 ];
 
-const CONVERTKIT_FORM_UID = "4a842ab3aa";
-
 export default function App() {
   const [email, setEmail] = useState("");
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-  const convertKitRef = React.useRef<HTMLDivElement>(null);
 
   const handleHeroNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,16 +99,6 @@ export default function App() {
       setEmail("");
     }, 1500);
   };
-
-  React.useEffect(() => {
-    const container = convertKitRef.current;
-    if (!container || document.querySelector(`script[data-uid="${CONVERTKIT_FORM_UID}"]`)) return;
-    const script = document.createElement("script");
-    script.async = true;
-    script.setAttribute("data-uid", CONVERTKIT_FORM_UID);
-    script.src = `https://jemsliving.kit.com/${CONVERTKIT_FORM_UID}/index.js`;
-    container.appendChild(script);
-  }, []);
 
   return (
     <div className="min-h-screen selection:bg-brand-accent selection:text-brand-bg">
@@ -515,7 +502,22 @@ export default function App() {
             </p>
           </div>
 
-          <div ref={convertKitRef} className="convertkit-embed max-w-md mx-auto" data-form-embed={CONVERTKIT_FORM_UID} />
+          <form action="https://app.kit.com/forms/9134740/subscriptions" method="post" className="mx-auto flex w-full max-w-md flex-col sm:flex-row items-center justify-center gap-3">
+            <input
+              type="email"
+              name="email_address"
+              placeholder="Email address"
+              required
+              className="flex-1 w-full rounded-full border border-brand-bg/20 bg-white px-5 py-3 text-sm text-brand-bg placeholder:text-brand-bg/50 focus:outline-none focus:ring-2 focus:ring-brand-gold/30 font-sans"
+            />
+            <input type="hidden" name="redirect" value="https://jemsliving.com/welcome" />
+            <button
+              type="submit"
+              className="shrink-0 rounded-full bg-brand-bg px-6 py-3 text-sm font-bold text-white uppercase tracking-wider hover:bg-brand-gold transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </section>
 
