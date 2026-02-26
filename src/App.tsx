@@ -12,8 +12,6 @@ import {
   ChevronRight,
   Send,
   Sparkles,
-  ShieldCheck,
-  Zap,
   Music,
   X,
   Quote
@@ -323,17 +321,19 @@ export default function App() {
                 </div>
                 <h3 className="text-2xl md:text-3xl font-display text-brand-text">{book.title}</h3>
                 <p className="text-base md:text-lg font-serif italic text-brand-gold">{book.subtitle}</p>
-                <p className="text-sm leading-relaxed text-brand-accent/85 line-clamp-3">
-                  {book.description}
-                </p>
+                <div className={book.id === 'main-character' ? 'flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6' : ''}>
+                  <p className={`text-sm leading-relaxed text-brand-accent/85 ${book.id === 'main-character' ? 'line-clamp-2 sm:line-clamp-3 flex-1 min-w-0' : 'line-clamp-3'}`}>
+                    {book.description}
+                  </p>
 
-                <button
-                  onClick={() => setSelectedBook(book)}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-text text-brand-bg rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-brand-gold transition-colors"
-                >
-                  View details & get your copy
-                  <span className="text-brand-bg"><ExternalLink size={12} /></span>
-                </button>
+                  <button
+                    onClick={() => setSelectedBook(book)}
+                    className={`inline-flex items-center gap-2 px-6 py-3 bg-brand-text text-brand-bg rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-brand-gold transition-colors shrink-0 ${book.id === 'main-character' ? '' : ''}`}
+                  >
+                    View details & get your copy
+                    <span className="text-brand-bg"><ExternalLink size={12} /></span>
+                  </button>
+                </div>
 
                 {book.reviews.length > 0 && (
                   <div className="space-y-3 pt-2 border-t border-white/5">
@@ -416,77 +416,55 @@ export default function App() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[8px] uppercase tracking-[0.3em] text-brand-gold">
                 <Sparkles size={12} /> Soft Launch
               </div>
-              <h2 className="text-4xl md:text-6xl font-display leading-none">Jemsliving Publishing</h2>
-              <p className="text-xl font-serif italic text-brand-accent">
-                Selective International Imprint for Emotionally Intense Fiction.
-              </p>
-              <p className="text-base font-serif italic text-brand-gold">
-                “Built by an author, for authors.”
-              </p>
+              <div>
+                <h2 className="text-4xl md:text-6xl font-display leading-none">Jemsliving Publishing</h2>
+                <p className="text-lg font-serif italic text-brand-gold mt-3">Built by an author, for authors.</p>
+              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <div className="p-3 w-fit bg-white/5 rounded-xl border border-white/10">
-                    <Zap size={20} className="text-brand-gold" />
-                  </div>
-                  <h4 className="font-bold uppercase text-[9px] tracking-[0.3em] text-white">Our Focus</h4>
-                  <ul className="space-y-2 text-xs text-brand-accent">
-                    <li>• Emotionally intense fiction</li>
-                    <li>• Cinematic love stories</li>
-                    <li>• Psychological depth</li>
-                    <li>• English-language manuscripts</li>
-                  </ul>
-                </div>
-                <div className="space-y-4">
-                  <div className="p-3 w-fit bg-white/5 rounded-xl border border-white/10">
-                    <ShieldCheck size={20} className="text-brand-gold" />
-                  </div>
-                  <h4 className="font-bold uppercase text-[9px] tracking-[0.3em] text-white">Our Approach</h4>
-                  <ul className="space-y-2 text-xs text-brand-accent">
-                    <li>• Creative respect</li>
-                    <li>• Strategic distribution</li>
-                    <li>• Shared commitment</li>
-                    <li>• Global reach</li>
-                  </ul>
-                </div>
+              <div className="space-y-6 text-sm leading-relaxed text-brand-accent/90">
+                <p>
+                  Jemsliving Publishing is an international English-language imprint currently entering its inaugural publishing cycle. All titles are published under the Jemsliving Publishing name.
+                </p>
+                <p>
+                  We focus on emotionally intense, cinematic fiction with strong relational storytelling and global appeal. Our catalog is intentionally limited—we publish a highly selective number of titles each year to protect quality, positioning, and long-term author growth.
+                </p>
+                <p>
+                  This is a partnership-driven, author-first model designed to offer significantly stronger royalty terms than traditional publishing while providing strategic direction, global digital distribution, and curated launch structure.
+                </p>
+                <p className="font-serif italic text-brand-gold">
+                  We are not a volume-based house. We are selective by design.
+                </p>
               </div>
             </div>
 
             <div className="glass-card p-10 rounded-3xl border-white/10">
-              <h3 className="text-3xl font-display mb-6">Apply for Consideration</h3>
-              <p className="text-sm text-brand-accent/60 mb-8 leading-relaxed">
-                We review a limited number of manuscripts each year. If your project aligns with our vision, we invite you to apply.
+              <h3 className="text-2xl font-display mb-6">Submission Criteria</h3>
+              <ul className="space-y-3 text-sm text-brand-accent/90 mb-10">
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> English-language manuscript</li>
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Clear commercial hook</li>
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Strong emotional core</li>
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Willingness to participate in marketing</li>
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Long-term publishing ambition</li>
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> 21+ years of age</li>
+              </ul>
+
+              <h3 className="text-2xl font-display mb-6">How to Submit</h3>
+              <p className="text-sm text-brand-accent/90 mb-6 leading-relaxed">
+                Initial submissions are by consideration only. We review a limited number of submissions per cycle.
               </p>
-              
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[8px] uppercase tracking-[0.3em] font-bold text-brand-accent/40">Full Name</label>
-                    <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-accent transition-colors text-brand-text" placeholder="Your name" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[8px] uppercase tracking-[0.3em] font-bold text-brand-accent/40">Email Address</label>
-                    <input type="email" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-accent transition-colors text-brand-text" placeholder="your@email.com" />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[8px] uppercase tracking-[0.3em] font-bold text-brand-accent/40">Book Title</label>
-                    <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-accent transition-colors text-brand-text" placeholder="Title or working title" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[8px] uppercase tracking-[0.3em] font-bold text-brand-accent/40">Genre</label>
-                    <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-accent transition-colors text-brand-text" placeholder="e.g. Contemporary Romance" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[8px] uppercase tracking-[0.3em] font-bold text-brand-accent/40">Short Pitch</label>
-                  <textarea rows={4} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-brand-accent transition-colors resize-none text-brand-text" placeholder="Tell us about your story..." />
-                </div>
-                <button type="button" className="w-full py-4 bg-brand-text text-brand-bg font-bold uppercase text-[9px] tracking-[0.3em] rounded-lg hover:bg-brand-accent transition-colors flex items-center justify-center gap-2">
-                  Submit Manuscript <Send size={14} />
-                </button>
-              </form>
+              <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-accent/70 mb-4">Please include in your submission:</p>
+              <ul className="space-y-2 text-sm text-brand-accent/90 mb-8">
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> A short project overview (max 1,500 characters)</li>
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Target audience and genre positioning</li>
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Current audience size, if applicable</li>
+                <li className="flex items-start gap-3"><span className="text-brand-gold shrink-0">•</span> Author bio and previous publication history</li>
+              </ul>
+              <p className="text-sm text-brand-accent/80 mb-8 leading-relaxed">
+                Selected projects will be invited to submit the full manuscript for review.
+              </p>
+              <a href="mailto:Jemslivingg@gmail.com?subject=Manuscript%20Submission%20%E2%80%93%20Jemsliving%20Publishing" className="inline-flex items-center gap-2 w-full justify-center py-4 bg-brand-text text-brand-bg font-bold uppercase text-[9px] tracking-[0.3em] rounded-lg hover:bg-brand-gold transition-colors">
+                Submit via Email <Send size={14} />
+              </a>
             </div>
           </div>
         </div>
