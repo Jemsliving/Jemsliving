@@ -13,7 +13,8 @@ import {
   Send,
   Music,
   X,
-  Quote
+  Quote,
+  Menu
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import logo from "./assets/logo.png";
@@ -90,6 +91,8 @@ export default function App() {
   const isPublishingPage = location.pathname === "/publishing";
   const isStandalonePage = isPublishingPage || location.pathname === "/privacy";
 
+  useEffect(() => setMobileMenuOpen(false), [location.pathname, location.hash]);
+
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.slice(1);
@@ -104,6 +107,7 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleHeroNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -236,7 +240,41 @@ export default function App() {
           <Link to="/#connect" className="hover:text-white transition-colors antialiased">Connect</Link>
           <Link to="/#newsletter" className="hover:text-white transition-colors antialiased">Newsletter</Link>
         </div>
+
+        {/* Mobile menu button */}
+        <button
+          className="md:hidden p-2 -mr-2 text-white hover:text-brand-gold transition-colors"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </nav>
+
+      {/* Mobile menu */}
+      <div
+        className={`md:hidden fixed left-0 right-0 z-40 pt-6 pb-8 px-6 bg-brand-bg border-b border-white/15 transform transition-transform duration-200 ease-out ${
+          mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+        }`}
+        style={{ top: "77px" }}
+      >
+        <nav className="flex flex-col gap-6 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
+          <Link to="/#books" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Books</Link>
+          <Link to="/#about" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>About</Link>
+          <Link to="/publishing" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Publishing</Link>
+          <Link to="/#connect" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
+          <Link to="/#newsletter" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Newsletter</Link>
+        </nav>
+      </div>
+
+      {/* Mobile menu backdrop */}
+      {mobileMenuOpen && (
+        <div
+          className="md:hidden fixed inset-0 z-30 bg-black/50"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
       <Routes>
         <Route path="/publishing" element={<Publishing />} />
