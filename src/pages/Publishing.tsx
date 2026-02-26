@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react";
 import { Send, DollarSign, Target, Globe, Rocket, TrendingUp } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const SECTIONS = [
   { id: "core", label: "The Core" },
@@ -28,9 +28,19 @@ const Section = ({ id, children, className = "" }: { id?: string; children: Reac
 );
 
 export default function Publishing() {
+  const location = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.hash]);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -344,15 +354,19 @@ export default function Publishing() {
       <div className="h-px bg-black/[0.03]" />
 
       {/* CTA */}
-      <section className="bg-white text-[#0a0a0a] py-20 md:py-24 border-t border-black/10">
+      <section id="cta" className="bg-white text-[#0a0a0a] py-20 md:py-24 border-t border-black/10 scroll-mt-32">
         <div className="mx-auto max-w-6xl px-6">
           <a href="mailto:Jemslivingg@gmail.com?subject=Manuscript%20Submission%20%E2%80%93%20Jemsliving%20Publishing" className="inline-flex items-center gap-2 px-8 py-4 bg-[#0f0f0f] text-white font-bold uppercase text-sm tracking-widest rounded-sm hover:bg-brand-gold hover:text-black transition-colors">
             Submit via Email <Send size={16} />
           </a>
-          <div className="mt-8 pt-8 border-t border-black/10">
+          <div className="mt-8 pt-8 border-t border-black/10 space-y-4">
             <Link to="/#newsletter" className="text-[#0a0a0a] hover:text-brand-gold font-medium transition-colors">
               Join the newsletter →
             </Link>
+            <p className="text-sm text-[#0a0a0a]/70">
+              By submitting your email, you agree to the{" "}
+              <Link to="/privacy" className="text-brand-gold hover:underline font-medium">Privacy Policy</Link>.
+            </p>
           </div>
         </div>
       </section>

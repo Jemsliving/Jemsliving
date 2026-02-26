@@ -15,9 +15,14 @@ export default function Privacy() {
     <main className="min-h-screen bg-white text-[#0a0a0a]">
       <header className="bg-black text-white py-20 md:py-28">
         <div className="mx-auto max-w-3xl px-6">
-          <Link to="/" className="text-brand-accent hover:text-white text-sm uppercase tracking-widest transition-colors">
-            ← Back to home
-          </Link>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/publishing#cta" className="text-brand-accent hover:text-white text-sm uppercase tracking-widest transition-colors">
+              ← Back to Submit
+            </Link>
+            <Link to="/" className="text-brand-accent hover:text-white text-sm uppercase tracking-widest transition-colors">
+              Back to home
+            </Link>
+          </div>
           <h1 className="text-3xl md:text-4xl font-display leading-tight mt-8">Privacy Policy</h1>
           <p className="text-base text-white/70 mt-2">Last updated: February 2026</p>
         </div>
@@ -133,9 +138,12 @@ export default function Privacy() {
           </p>
         </section>
 
-        <div className="pt-8 border-t border-black/10">
-          <Link to="/" className="text-brand-gold hover:underline font-medium">
-            ← Return to home
+        <div className="pt-8 border-t border-black/10 flex flex-wrap gap-6">
+          <Link to="/publishing#cta" className="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-medium rounded-sm hover:bg-brand-gold hover:text-black transition-colors">
+            ← Back to Submit
+          </Link>
+          <Link to="/" className="text-brand-gold hover:underline font-medium py-2.5">
+            Return to home
           </Link>
         </div>
       </div>
