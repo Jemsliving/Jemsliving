@@ -8,21 +8,21 @@ import { Link } from "react-router-dom";
 
 export default function Publishing() {
   return (
-    <main className="min-h-screen bg-brand-bg text-brand-text">
-      <div className="max-w-3xl mx-auto px-6 py-24 space-y-16">
-        <div>
-          <Link to="/" className="text-brand-accent hover:text-white text-sm uppercase tracking-widest transition-colors">
-            ← Back to home
-          </Link>
-        </div>
+    <main className="min-h-screen bg-black text-white">
+      <div className="mx-auto max-w-6xl px-6 py-20 space-y-16">
+          <div>
+            <Link to="/" className="text-brand-accent hover:text-white text-sm uppercase tracking-widest transition-colors">
+              ← Back to home
+            </Link>
+          </div>
 
-        <header>
-          <h1 className="text-4xl md:text-6xl font-display leading-tight">Jemsliving Publishing</h1>
-          <p className="text-xl font-serif italic text-brand-gold mt-4">Built by an author, for authors.</p>
-        </header>
+          <header>
+            <h1 className="text-4xl md:text-6xl font-display leading-tight">Jemsliving Publishing</h1>
+            <p className="text-xl font-serif italic text-brand-gold mt-4">Built by an author, for authors.</p>
+          </header>
 
-        <section>
-          <h2 className="text-2xl font-display mb-6">The Core</h2>
+          <section id="core" className="scroll-mt-32">
+            <h2 className="text-2xl font-display mb-6">The Core</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
               Today&rsquo;s authors are often undervalued within traditional publishing structures. Between agents, publishers, and distribution layers, both margin and influence are diluted. At the same time, many writers who choose to publish independently face another challenge. They are expected to take on every role, editor, designer, marketer, strategist, distributor, without always having the right structure or guidance.
@@ -42,7 +42,7 @@ export default function Publishing() {
           </div>
         </section>
 
-        <section>
+        <section id="founder" className="scroll-mt-32">
           <h2 className="text-2xl font-display mb-6">Founder</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
@@ -66,7 +66,7 @@ export default function Publishing() {
           </div>
         </section>
 
-        <section>
+        <section id="editorial" className="scroll-mt-32">
           <h2 className="text-2xl font-display mb-6">Editorial Collaboration</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
@@ -81,7 +81,7 @@ export default function Publishing() {
           </div>
         </section>
 
-        <section>
+        <section id="about" className="scroll-mt-32">
           <h2 className="text-2xl font-display mb-6">About the Imprint</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
@@ -99,7 +99,7 @@ export default function Publishing() {
           </div>
         </section>
 
-        <section>
+        <section id="model" className="scroll-mt-32">
           <h2 className="text-2xl font-display mb-6">The Model</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
@@ -122,7 +122,7 @@ export default function Publishing() {
           </div>
         </section>
 
-        <section>
+        <section id="criteria" className="scroll-mt-32">
           <h2 className="text-2xl font-display mb-6">Submission Criteria</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
@@ -158,7 +158,7 @@ export default function Publishing() {
           </div>
         </section>
 
-        <section>
+        <section id="submit" className="scroll-mt-32">
           <h2 className="text-2xl font-display mb-6">How to Submit</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
@@ -180,7 +180,7 @@ export default function Publishing() {
           </div>
         </section>
 
-        <section>
+        <section id="positioning" className="scroll-mt-32">
           <h2 className="text-2xl font-display mb-6">Positioning</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
@@ -201,7 +201,7 @@ export default function Publishing() {
           </div>
         </section>
 
-        <section>
+        <section id="stay-informed" className="scroll-mt-32">
           <h2 className="text-2xl font-display mb-6">Stay Informed</h2>
           <div className="space-y-6 text-base leading-relaxed text-brand-accent/90">
             <p>
