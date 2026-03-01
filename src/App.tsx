@@ -239,8 +239,8 @@ export default function App() {
         <div className="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <Link to="/#books" className="hover:text-white transition-colors antialiased">Books</Link>
           <Link to="/#about" className="hover:text-white transition-colors antialiased">About</Link>
-          <Link to="/publishing" className="hover:text-white transition-colors antialiased">Publishing</Link>
           <Link to="/#connect" className="hover:text-white transition-colors antialiased">Connect</Link>
+          <Link to="/publishing" className="hover:text-white transition-colors antialiased">Publishing</Link>
           <Link to="/#newsletter" className="hover:text-white transition-colors antialiased">Newsletter</Link>
         </div>
 
@@ -264,8 +264,8 @@ export default function App() {
         <nav className="flex flex-col gap-6 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <Link to="/#books" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Books</Link>
           <Link to="/#about" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>About</Link>
-          <Link to="/publishing" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Publishing</Link>
           <Link to="/#connect" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
+          <Link to="/publishing" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Publishing</Link>
           <Link to="/#newsletter" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Newsletter</Link>
         </nav>
       </div>
@@ -538,20 +538,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* Connect / Follow Section */}
+      {/* Connect Section - email only, no social icons */}
       <section id="connect" className="py-12 px-6 bg-brand-bg border-t border-white/5">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-brand-gold block mb-1">Get in touch</span>
-            <h2 className="text-2xl md:text-3xl font-display text-white">Connect with Jemima</h2>
-          </div>
-
-          <a
-            href="mailto:Jemslivingg@gmail.com"
-            className="inline-flex items-center gap-3 px-6 py-4 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all"
-          >
-            <svg className="w-5 h-5 text-[#EA4335] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <span className="text-white font-medium">Jemslivingg@gmail.com</span>
+        <div className="max-w-3xl mx-auto text-center">
+          <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-brand-gold block mb-1">Get in touch</span>
+          <h2 className="text-2xl md:text-3xl font-display text-white">Connect with Jemima</h2>
+          <a href="mailto:Jemslivingg@gmail.com" className="mt-6 inline-block text-white font-medium hover:text-brand-gold transition-colors underline underline-offset-4">
+            Jemslivingg@gmail.com
           </a>
         </div>
       </section>
@@ -571,8 +564,8 @@ export default function App() {
           
           <div className="flex gap-8 text-[8px] uppercase tracking-[0.3em] font-bold opacity-40">
             <a href="#books" className="hover:text-brand-accent transition-colors">Books</a>
-            <a href="#publishing" className="hover:text-brand-accent transition-colors">Publishing</a>
             <a href="#connect" className="hover:text-brand-accent transition-colors">Connect</a>
+            <a href="#publishing" className="hover:text-brand-accent transition-colors">Publishing</a>
             <Link to="/privacy" className="hover:text-brand-accent transition-colors">Privacy</Link>
           </div>
         </div>
