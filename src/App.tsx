@@ -20,9 +20,10 @@ import logo from "./assets/logo.png";
 import emptyWorldCover from "./assets/An empty world with you.jpeg";
 import mainCharacterCover from "./assets/8786A8EB-A81E-4D32-A22E-D1D279502FD6_1_201_a.jpeg";
 import jemimaPortrait from "./assets/Jemima ceesay.jpeg";
-import goodreadsLogo from "./assets/goodreads-logo.png";
 import Publishing from "./pages/Publishing";
 import Privacy from "./pages/Privacy";
+import Welcome from "./pages/Welcome";
+import NewsletterForm from "./components/NewsletterForm";
 
 // Types
 interface Book {
@@ -89,6 +90,7 @@ export default function App() {
   const location = useLocation();
   const isPublishingPage = location.pathname === "/publishing";
   const isStandalonePage = isPublishingPage || location.pathname === "/privacy";
+  const isWelcomePage = location.pathname === "/welcome";
 
   useEffect(() => setMobileMenuOpen(false), [location.pathname, location.hash]);
 
@@ -153,12 +155,12 @@ export default function App() {
               </div>
 
               <div className="space-y-2 -mt-1">
-                <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Get your copy</h4>
+                <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Buy now</h4>
                 <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2">
-                  <a href={selectedBook.links.amazon} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FF9900] hover:bg-[#ffad33] text-brand-bg rounded-xl text-sm font-bold transition-colors">
+                  <a href={selectedBook.links.amazon} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#FF9900] hover:bg-[#ffad33] text-black rounded-xl text-base font-bold transition-colors shadow-lg">
                     <img src="https://logo.clearbit.com/amazon.com" alt="" className="w-6 h-6 object-contain" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-                    <span>Amazon</span>
-                    <ExternalLink size={14} />
+                    <span>Buy on Amazon</span>
+                    <ExternalLink size={16} />
                   </a>
                   <div className="flex flex-wrap gap-2">
                     {selectedBook.links.barnesAndNoble && (
@@ -198,7 +200,9 @@ export default function App() {
         </div>
       )}
 
-      {/* Navigation */}
+      {/* Navigation - hidden on welcome page */}
+      {!isWelcomePage && (
+      <>
       <nav className="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-brand-bg border-b border-white/15 shadow-md">
         <Link
           to="/"
@@ -274,10 +278,13 @@ export default function App() {
           aria-hidden="true"
         />
       )}
+      </>
+      )}
 
       <Routes>
         <Route path="/publishing" element={<Publishing />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/welcome" element={<Welcome />} />
         <Route path="/" element={<>
       {/* Hero Section - Redesigned & Focused */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-24 pb-24 md:pb-0">
@@ -328,19 +335,22 @@ export default function App() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Email address"
-                      className="flex-1 rounded-full border border-brand-bg/15 bg-white px-5 py-3 text-sm text-brand-bg placeholder:text-brand-bg/40 focus:outline-none focus:ring-2 focus:ring-brand-bg/15"
+                      placeholder="Your email"
+                      className="flex-1 rounded-full border-2 border-brand-bg/20 bg-white px-5 py-3.5 text-sm text-brand-bg placeholder:text-brand-bg/40 focus:outline-none focus:ring-2 focus:ring-brand-gold/40 focus:border-brand-gold/40"
                     />
                     <button
                       type="submit"
                       disabled={formStatus === "submitting"}
-                      className="shrink-0 rounded-full border border-[#1a4a5c]/40 bg-[#1a4a5c] px-5 py-3 text-sm font-medium text-white hover:bg-[#234f5f] hover:border-[#234f5f] transition-colors disabled:opacity-50"
+                      className="shrink-0 rounded-full bg-brand-bg px-6 py-3.5 text-sm font-bold text-white hover:bg-brand-gold hover:text-black transition-colors disabled:opacity-50 uppercase tracking-wider"
                     >
-                      {formStatus === "idle" && "Receive Updates"}
+                      {formStatus === "idle" && "Get early access"}
                       {formStatus === "submitting" && "..."}
                     </button>
                   </form>
                 )}
+                <a href="#books" className="inline-block mt-4 text-brand-bg/70 hover:text-brand-bg text-sm font-medium underline underline-offset-2">
+                  Or shop the books →
+                </a>
               </div>
             </div>
           </motion.div>
@@ -357,6 +367,7 @@ export default function App() {
         <div className="mb-12">
           <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-brand-gold mb-2 block">The Collection</span>
           <h2 className="text-4xl md:text-5xl font-display tracking-tight text-brand-text">Published Works</h2>
+          <p className="mt-3 text-brand-accent/80 text-lg">Stories that resonate. Get your copy today.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
@@ -394,18 +405,28 @@ export default function App() {
                 </div>
                 <h3 className="text-2xl md:text-3xl font-display text-brand-text">{book.title}</h3>
                 <p className="text-lg md:text-xl font-serif font-medium text-white/95 tracking-wide">{book.subtitle}</p>
-                <div className={book.id === 'main-character' ? 'flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6' : ''}>
+                <div className={book.id === 'main-character' ? 'flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6' : 'space-y-4'}>
                   <p className={`text-sm leading-relaxed text-brand-accent/85 ${book.id === 'main-character' ? 'line-clamp-2 sm:line-clamp-3 flex-1 min-w-0' : 'line-clamp-3'}`}>
                     {book.description}
                   </p>
 
-                  <button
-                    onClick={() => setSelectedBook(book)}
-                    className={`inline-flex items-center gap-2 px-6 py-3 bg-brand-text text-brand-bg rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-brand-gold transition-colors shrink-0 ${book.id === 'main-character' ? '' : ''}`}
-                  >
-                    View details & get your copy
-                    <span className="text-brand-bg"><ExternalLink size={12} /></span>
-                  </button>
+                  <div className="flex flex-wrap gap-3">
+                    <a
+                      href={book.links.amazon}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF9900] hover:bg-[#ffad33] text-black font-bold rounded-full text-[11px] uppercase tracking-wider transition-colors shrink-0"
+                    >
+                      Buy on Amazon
+                      <ExternalLink size={14} />
+                    </a>
+                    <button
+                      onClick={() => setSelectedBook(book)}
+                      className="inline-flex items-center gap-2 px-5 py-3 border border-white/30 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors shrink-0"
+                    >
+                      View details
+                    </button>
+                  </div>
                 </div>
 
                 {book.reviews.length > 0 && (
@@ -501,7 +522,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Newsletter Section */}
+      {/* Newsletter Section - Kit embed (redirect to /welcome set in Kit dashboard) */}
       <section id="newsletter" className="py-24 px-6 bg-white border-t border-black/10">
         <div className="max-w-3xl mx-auto text-center space-y-10">
           <div className="space-y-4">
@@ -510,24 +531,10 @@ export default function App() {
             <p className="text-lg font-serif italic text-brand-bg/80 max-w-xl mx-auto leading-relaxed">
               Join for release updates, upcoming newsletters, behind-the-scenes insights, and early access as the world continues to expand.
             </p>
+            <p className="text-sm text-brand-bg/60">No spam. Unsubscribe anytime.</p>
           </div>
 
-          <form action="https://app.kit.com/forms/9134740/subscriptions" method="post" className="mx-auto flex w-full max-w-md flex-col sm:flex-row items-center justify-center gap-3">
-            <input
-              type="email"
-              name="email_address"
-              placeholder="Email address"
-              required
-              className="flex-1 w-full rounded-full border border-brand-bg/20 bg-white px-5 py-3 text-sm text-brand-bg placeholder:text-brand-bg/50 focus:outline-none focus:ring-2 focus:ring-brand-gold/30 font-sans"
-            />
-            <input type="hidden" name="redirect" value="https://jemsliving.com/welcome" />
-            <button
-              type="submit"
-              className="shrink-0 rounded-full bg-brand-bg px-6 py-3 text-sm font-bold text-white uppercase tracking-wider hover:bg-brand-gold transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
       </section>
 
@@ -539,23 +546,13 @@ export default function App() {
             <h2 className="text-2xl md:text-3xl font-display text-white">Connect with Jemima</h2>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:Jemslivingg@gmail.com" className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all" title="Email" aria-label="Email">
-              <svg className="w-5 h-5 text-[#EA4335]" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            </a>
-
-            <a href="https://www.goodreads.com/author/show/56995964.Jemima_Ceesay?ref=nav_profile_l" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all" title="Goodreads" aria-label="Goodreads">
-              <img src={goodreadsLogo} alt="" className="w-5 h-5 object-contain" />
-            </a>
-
-            <a href="https://instagram.com/Authorjems" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all" title="Instagram @Authorjems" aria-label="Instagram">
-              <svg className="w-5 h-5 text-[#E4405F]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-
-            <a href="https://tiktok.com/@authorjems" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all" title="TikTok @authorjems" aria-label="TikTok">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="#00F2EA"/><path d="M19.59 6.69v3.4a8.16 8.16 0 0 1-4.77-1.52v7a6.34 6.34 0 0 1-10.86 4.43 6.34 6.34 0 0 1 10.86-4.43v-7a6.84 6.84 0 0 0 1 .05 2.93 2.93 0 0 0-.88-.13 2.89 2.89 0 0 0-2.31 4.64 2.89 2.89 0 0 0 5.2-1.74V2h3.45v.44a4.83 4.83 0 0 0 3.77 4.25 4.85 4.85 0 0 0 1 .1z" fill="#FF0050"/></svg>
-            </a>
-          </div>
+          <a
+            href="mailto:Jemslivingg@gmail.com"
+            className="inline-flex items-center gap-3 px-6 py-4 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all"
+          >
+            <svg className="w-5 h-5 text-[#EA4335] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span className="text-white font-medium">Jemslivingg@gmail.com</span>
+          </a>
         </div>
       </section>
 

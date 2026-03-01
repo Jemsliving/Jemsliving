@@ -360,7 +360,7 @@ export default function Publishing() {
             Submit via Email <Send size={16} />
           </a>
           <div className="mt-8 pt-8 border-t border-black/10 space-y-4">
-            <Link to="/#newsletter" className="text-[#0a0a0a] hover:text-brand-gold font-medium transition-colors">
+            <Link to="/#newsletter" className="inline-flex items-center gap-2 px-6 py-3 bg-brand-gold text-black font-bold text-sm uppercase tracking-wider rounded-sm hover:bg-brand-gold/90 transition-colors">
               Join the newsletter →
             </Link>
             <p className="text-sm text-[#0a0a0a]/70">
