@@ -610,8 +610,8 @@ export default function App() {
                 )}
               </div>
 
-              <div className="flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-3">
+              <div className="flex-1 flex flex-col h-full">
+                <div className="space-y-3 min-h-[140px]">
                   <h3 className="text-2xl md:text-3xl font-display text-brand-text">{book.title}</h3>
                   <p className="text-lg md:text-xl font-serif font-medium text-white/95 tracking-wide">
                     {book.subtitle}
@@ -621,19 +621,19 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-3 items-center mt-2">
+                <div className="mt-auto flex flex-row items-center gap-4 flex-nowrap pt-4">
                   <a
                     href={book.links.amazon}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF9900] hover:bg-[#ffad33] text-black font-bold rounded-full text-[11px] uppercase tracking-wider transition-colors shrink-0"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FF9900] hover:bg-[#ffad33] text-black font-bold rounded-full text-[11px] uppercase tracking-wider transition-colors"
                   >
                     Buy on Amazon
                     <ExternalLink size={14} />
                   </a>
                   <button
                     onClick={() => setSelectedBook(book)}
-                    className="inline-flex items-center gap-2 px-5 py-3 border border-white/30 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors shrink-0"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 border border-white/30 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors"
                   >
                     More details
                   </button>
