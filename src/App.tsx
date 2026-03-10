@@ -90,7 +90,7 @@ const BOOKS: Book[] = [
       amazon: "https://www.amazon.com/Empty-World-You-dystopian-survival/dp/9153151283",
       barnesAndNoble: "https://www.barnesandnoble.com/s/An+Empty+World+With+You+Jemima+Ceesay",
       waterstones: "https://www.waterstones.com/books/search/term/an+empty+world+with+you+jemima+ceesay",
-      adlibris: "https://www.adlibris.com/sok?q=an+empty+world+with+you+jemima+ceesay",
+      adlibris: "https://www.adlibris.com/sv/bok/an-empty-world-with-you-9789153151289",
       moreRetailers: "https://www.google.com/search?q=An+Empty+World+With+You+Jemima+Ceesay+buy"
     }
   },
