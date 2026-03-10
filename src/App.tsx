@@ -405,8 +405,8 @@ export default function App() {
                 </div>
                 <h3 className="text-2xl md:text-3xl font-display text-brand-text">{book.title}</h3>
                 <p className="text-lg md:text-xl font-serif font-medium text-white/95 tracking-wide">{book.subtitle}</p>
-                <div className={book.id === 'main-character' ? 'flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6' : 'space-y-4'}>
-                  <p className={`text-sm leading-relaxed text-brand-accent/85 ${book.id === 'main-character' ? 'line-clamp-2 sm:line-clamp-3 flex-1 min-w-0' : 'line-clamp-3'}`}>
+                <div className="space-y-4">
+                  <p className="text-sm leading-relaxed text-brand-accent/85">
                     {book.description}
                   </p>
 
