@@ -111,6 +111,7 @@ export default function App() {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openReviewBookId, setOpenReviewBookId] = useState<string | null>(null);
+  const [soundtrackBook, setSoundtrackBook] = useState<Book | null>(null);
 
   const handleHeroNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -193,9 +194,49 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Synopsis</h4>
-                <p className="text-sm leading-relaxed text-brand-accent/80">{selectedBook.description}</p>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Story Overview</h4>
+                  <p className="text-sm leading-relaxed text-brand-accent/80">
+                    {selectedBook.description}
+                  </p>
+                </div>
+
+                {selectedBook.spotifyUrl && (
+                  <div className="space-y-3 pt-3 border-t border-white/10">
+                    <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#1DB954]">Official Soundtrack</h4>
+                    <p className="text-sm text-brand-accent/80 leading-relaxed">
+                      Fun fact 🎈 The playlist was the emotional backdrop of the novel. &ldquo;The Night We Met&rdquo; by Lord Huron played on repeat through some of its most defining chapters.
+                    </p>
+                    <a
+                      href={selectedBook.spotifyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#1DB954] text-black text-[11px] font-bold uppercase tracking-widest hover:bg-[#1ED760] transition-colors"
+                    >
+                      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                      </svg>
+                      Listen on Spotify
+                    </a>
+                  </div>
+                )}
+
+                {selectedBook.reviews.length > 0 && (
+                  <div className="space-y-3 pt-3 border-t border-white/10">
+                    <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-gold">Reader Reviews</h4>
+                    <div className="space-y-3 max-h-56 overflow-y-auto pr-1">
+                      {selectedBook.reviews.map((review, i) => (
+                        <div key={i} className="space-y-1 pb-3 border-b border-white/5 last:border-0 last:pb-0">
+                          <p className="text-sm italic text-brand-accent/90 leading-relaxed">
+                            &ldquo;{review.text}&rdquo;
+                          </p>
+                          <p className="text-xs font-bold text-brand-gold">- {review.author}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
@@ -235,7 +276,7 @@ export default function App() {
                 {book.reviews.map((review, i) => (
                   <div key={i} className="space-y-1 pb-4 border-b border-white/5 last:border-0 last:pb-0">
                     <p className="text-sm italic text-brand-accent/90 leading-relaxed">&ldquo;{review.text}&rdquo;</p>
-                    <p className="text-xs font-bold text-brand-gold">— {review.author}</p>
+                    <p className="text-xs font-bold text-brand-gold">- {review.author}</p>
                   </div>
                 ))}
               </div>
@@ -243,6 +284,52 @@ export default function App() {
           </div>
         );
       })()}
+
+      {/* Soundtrack popup */}
+      {soundtrackBook && soundtrackBook.spotifyUrl && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSoundtrackBook(null)}
+            className="absolute inset-0 bg-brand-bg/80 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md bg-brand-section border border-white/10 rounded-2xl shadow-2xl p-6 max-h-[80vh] overflow-hidden flex flex-col gap-4"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <h3 className="text-lg font-display text-[#1DB954]">Official Soundtrack</h3>
+              <button
+                onClick={() => setSoundtrackBook(null)}
+                className="p-2 rounded-full bg-white/5 border border-white/10 text-brand-accent hover:text-white transition-colors shrink-0"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <p className="text-sm text-brand-accent/80 leading-relaxed">
+              Fun fact 🎈 The playlist was the emotional backdrop of the novel. &ldquo;The Night We Met&rdquo; by Lord Huron played on repeat through some of its most defining chapters.
+            </p>
+            <div className="mt-2">
+              <a
+                href={soundtrackBook.spotifyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#1DB954] text-black text-[11px] font-bold uppercase tracking-widest hover:bg-[#1ED760] transition-colors"
+              >
+                <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                </svg>
+                Listen on Spotify
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       {/* Navigation - hidden on welcome page */}
       {!isWelcomePage && (
@@ -414,7 +501,7 @@ export default function App() {
           <p className="mt-3 text-brand-accent/80 text-lg">Stories that resonate. Get your copy today.</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
           {BOOKS.map((book, index) => (
             <motion.div 
               key={book.id}
@@ -422,7 +509,7 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex flex-col md:flex-row gap-8 items-start group"
+              className="flex flex-col md:flex-row gap-8 items-start group h-full"
             >
               <div 
                 onClick={() => setSelectedBook(book)}
@@ -441,54 +528,34 @@ export default function App() {
                 )}
               </div>
 
-              <div className="space-y-4 flex-1">
-                <div className="flex items-center gap-3">
-                  <span className="text-[8px] uppercase tracking-[0.2em] font-bold px-3 py-1 bg-white/5 border border-white/10 text-brand-accent rounded-full">
-                    {book.genre}
-                  </span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-display text-brand-text">{book.title}</h3>
-                <p className="text-lg md:text-xl font-serif font-medium text-white/95 tracking-wide">{book.subtitle}</p>
-                <div className="space-y-4">
-                  <p className="text-sm leading-relaxed text-brand-accent/85">
+              <div className="flex-1 flex flex-col justify-between space-y-4">
+                <div className="space-y-3">
+                  <h3 className="text-2xl md:text-3xl font-display text-brand-text">{book.title}</h3>
+                  <p className="text-lg md:text-xl font-serif font-medium text-white/95 tracking-wide">
+                    {book.subtitle}
+                  </p>
+                  <p className="text-sm leading-relaxed text-brand-accent/85 line-clamp-4">
                     {book.description}
                   </p>
-
-                  <div className="flex flex-wrap gap-3">
-                    <a
-                      href={book.links.amazon}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF9900] hover:bg-[#ffad33] text-black font-bold rounded-full text-[11px] uppercase tracking-wider transition-colors shrink-0"
-                    >
-                      Buy on Amazon
-                      <ExternalLink size={14} />
-                    </a>
-                    {book.id === "empty-world" && book.reviews.length > 0 && (
-                      <button
-                        onClick={() => setOpenReviewBookId(book.id)}
-                        className="inline-flex items-center gap-2 px-5 py-3 border border-white/30 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors shrink-0"
-                      >
-                        <Star className="w-4 h-4 text-brand-gold fill-current" />
-                        <span>Reviews</span>
-                      </button>
-                    )}
-                  </div>
                 </div>
 
-                {book.spotifyUrl && (
-                  <div className="pt-6 mt-4 border-t border-white/5 space-y-3">
-                    <p className="text-xs text-brand-accent/70 italic leading-relaxed">
-                      Fun fact: This playlist was the emotional backdrop of the novel. &ldquo;The Night We Met&rdquo; by Lord Huron played on repeat through some of its most defining chapters.
-                    </p>
-                    <a href={book.spotifyUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#1DB954]/10 border border-[#1DB954]/30 text-[#1DB954] text-[10px] font-bold uppercase tracking-wider hover:bg-[#1DB954]/20 transition-colors w-fit">
-                      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                      </svg>
-                      Official Soundtrack
-                    </a>
-                  </div>
-                )}
+                <div className="flex flex-wrap gap-3 items-center mt-2">
+                  <a
+                    href={book.links.amazon}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF9900] hover:bg-[#ffad33] text-black font-bold rounded-full text-[11px] uppercase tracking-wider transition-colors shrink-0"
+                  >
+                    Buy on Amazon
+                    <ExternalLink size={14} />
+                  </a>
+                  <button
+                    onClick={() => setSelectedBook(book)}
+                    className="inline-flex items-center gap-2 px-5 py-3 border border-white/30 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors shrink-0"
+                  >
+                    More details
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
