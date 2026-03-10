@@ -13,7 +13,8 @@ import {
   Music,
   X,
   Quote,
-  Menu
+  Menu,
+  Star
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import logo from "./assets/logo.png";
@@ -109,6 +110,7 @@ export default function App() {
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openReviewBookId, setOpenReviewBookId] = useState<string | null>(null);
 
   const handleHeroNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -199,6 +201,48 @@ export default function App() {
           </motion.div>
         </div>
       )}
+
+      {/* Reviews popup */}
+      {openReviewBookId && (() => {
+        const book = BOOKS.find((b) => b.id === openReviewBookId);
+        if (!book || book.reviews.length === 0) return null;
+        return (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpenReviewBookId(null)}
+              className="absolute inset-0 bg-brand-bg/80 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md bg-brand-section border border-white/10 rounded-2xl shadow-2xl p-6 max-h-[80vh] overflow-hidden flex flex-col"
+            >
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <h3 className="text-lg font-display text-brand-text">Reader Reviews</h3>
+                <button
+                  onClick={() => setOpenReviewBookId(null)}
+                  className="p-2 rounded-full bg-white/5 border border-white/10 text-brand-accent hover:text-white transition-colors shrink-0"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+              <div className="space-y-4 overflow-y-auto flex-1 min-h-0 pr-1">
+                {book.reviews.map((review, i) => (
+                  <div key={i} className="space-y-1 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                    <p className="text-sm italic text-brand-accent/90 leading-relaxed">&ldquo;{review.text}&rdquo;</p>
+                    <p className="text-xs font-bold text-brand-gold">— {review.author}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        );
+      })()}
 
       {/* Navigation - hidden on welcome page */}
       {!isWelcomePage && (
@@ -420,26 +464,17 @@ export default function App() {
                       Buy on Amazon
                       <ExternalLink size={14} />
                     </a>
-                    <button
-                      onClick={() => setSelectedBook(book)}
-                      className="inline-flex items-center gap-2 px-5 py-3 border border-white/30 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors shrink-0"
-                    >
-                      View details
-                    </button>
+                    {book.id === "empty-world" && book.reviews.length > 0 && (
+                      <button
+                        onClick={() => setOpenReviewBookId(book.id)}
+                        className="inline-flex items-center gap-2 px-5 py-3 border border-white/30 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors shrink-0"
+                      >
+                        <Star className="w-4 h-4 text-brand-gold fill-current" />
+                        <span>Reviews</span>
+                      </button>
+                    )}
                   </div>
                 </div>
-
-                {book.reviews.length > 0 && (
-                  <div className="space-y-3 pt-2 border-t border-white/5">
-                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Reader Reviews</p>
-                    {book.reviews.map((review, i) => (
-                      <div key={i} className="space-y-1">
-                        <p className="text-sm italic text-brand-accent/90 leading-relaxed">&ldquo;{review.text}&rdquo;</p>
-                        <p className="text-xs font-bold text-brand-gold">— {review.author}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
 
                 {book.spotifyUrl && (
                   <div className="pt-6 mt-4 border-t border-white/5 space-y-3">
