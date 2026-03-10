@@ -26,6 +26,28 @@ import Privacy from "./pages/Privacy";
 import Welcome from "./pages/Welcome";
 import NewsletterForm from "./components/NewsletterForm";
 
+function PublishingComingSoon() {
+  return (
+    <div className="min-h-screen bg-brand-bg flex flex-col items-center justify-center px-6 py-24">
+      <div className="max-w-lg w-full text-center space-y-8">
+        <h1 className="text-3xl md:text-4xl font-display text-white tracking-[0.2em] uppercase">
+          Publishing
+        </h1>
+        <p className="text-lg md:text-xl font-display text-brand-gold tracking-[0.15em] uppercase">
+          Coming Soon
+        </p>
+        <div className="h-px w-12 mx-auto bg-white/20" />
+        <p className="text-brand-accent/90 text-base md:text-lg leading-relaxed font-sans">
+          Jemsliving Publishing is currently in development. A new platform for authors will launch in 2026.
+        </p>
+        <p className="text-sm text-brand-accent/60 italic">
+          Built by an author, for authors.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // Types
 interface Book {
   id: string;
@@ -112,6 +134,7 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openReviewBookId, setOpenReviewBookId] = useState<string | null>(null);
   const [soundtrackBook, setSoundtrackBook] = useState<Book | null>(null);
+  const [publishingComingSoonOpen, setPublishingComingSoonOpen] = useState(false);
 
   const handleHeroNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -331,6 +354,53 @@ export default function App() {
         </div>
       )}
 
+      {/* Publishing coming soon popup */}
+      {publishingComingSoonOpen && (
+        <div className="fixed inset-0 z-[90] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPublishingComingSoonOpen(false)}
+            className="absolute inset-0 bg-brand-bg/85 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md bg-brand-section border border-white/10 rounded-2xl shadow-2xl p-6 flex flex-col gap-4"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <h3 className="text-sm font-display tracking-[0.25em] uppercase text-white">
+                Publishing
+              </h3>
+              <button
+                onClick={() => setPublishingComingSoonOpen(false)}
+                className="p-2 rounded-full bg-white/5 border border-white/10 text-brand-accent hover:text-white transition-colors shrink-0"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <p className="text-lg font-serif text-brand-text/90">
+              Coming soon&nbsp;2026.
+            </p>
+            <p className="text-sm text-brand-accent/85 leading-relaxed">
+              Jemsliving Publishing services are in development. Sign up for the newsletter to be the first to know when submissions open and new opportunities launch.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link
+                to="/#newsletter"
+                onClick={() => setPublishingComingSoonOpen(false)}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white text-brand-bg text-[11px] font-bold uppercase tracking-widest hover:bg-brand-gold hover:text-black transition-colors"
+              >
+                Go to newsletter
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* Navigation - hidden on welcome page */}
       {!isWelcomePage && (
       <>
@@ -371,7 +441,13 @@ export default function App() {
           <Link to="/#books" className="hover:text-white transition-colors antialiased">Books</Link>
           <Link to="/#about" className="hover:text-white transition-colors antialiased">About</Link>
           <Link to="/#connect" className="hover:text-white transition-colors antialiased">Connect</Link>
-          <Link to="/publishing" className="hover:text-white transition-colors antialiased">Publishing</Link>
+          <button
+            type="button"
+            onClick={() => setPublishingComingSoonOpen(true)}
+            className="hover:text-white transition-colors antialiased"
+          >
+            Publishing
+          </button>
           <Link to="/#newsletter" className="hover:text-white transition-colors antialiased">Newsletter</Link>
         </div>
 
@@ -396,7 +472,16 @@ export default function App() {
           <Link to="/#books" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Books</Link>
           <Link to="/#about" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>About</Link>
           <Link to="/#connect" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
-          <Link to="/publishing" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Publishing</Link>
+          <button
+            type="button"
+            className="hover:text-brand-gold transition-colors py-2 text-left"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setPublishingComingSoonOpen(true);
+            }}
+          >
+            Publishing
+          </button>
           <Link to="/#newsletter" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Newsletter</Link>
         </nav>
       </div>
@@ -413,7 +498,7 @@ export default function App() {
       )}
 
       <Routes>
-        <Route path="/publishing" element={<Publishing />} />
+        <Route path="/publishing" element={<PublishingComingSoon />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/" element={<>
@@ -440,9 +525,6 @@ export default function App() {
               </div>
 
               <div className="mx-auto max-w-xl space-y-8 md:space-y-10 text-center">
-                <h1 className="font-serif text-brand-bg uppercase text-sm md:text-base tracking-[0.3em] font-semibold">Jemima Ceesay</h1>
-                <div className="mx-auto h-px w-12 bg-brand-bg/25" />
-
                 <div className="space-y-5 md:space-y-6">
                   <h2 className="text-brand-bg font-display text-4xl md:text-6xl uppercase tracking-[0.34em] leading-[0.95]">
                     THE WORLD EXPANDS
@@ -633,7 +715,6 @@ export default function App() {
             <p className="text-lg font-serif italic text-brand-bg/80 max-w-xl mx-auto leading-relaxed">
               Join for release updates, upcoming newsletters, behind-the-scenes insights, and early access as the world continues to expand.
             </p>
-            <p className="text-sm text-brand-bg/60">No spam. Unsubscribe anytime.</p>
           </div>
 
           <NewsletterForm />
