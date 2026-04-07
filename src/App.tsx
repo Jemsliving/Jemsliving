@@ -526,8 +526,6 @@ export default function App() {
         </Link>
         <div className="hidden lg:flex gap-5 xl:gap-8 text-[10px] xl:text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <Link to="/#books" className="hover:text-white transition-colors antialiased">Books</Link>
-          <Link to="/books/empty-world" className="hover:text-white transition-colors antialiased">Fiction</Link>
-          <Link to="/books/main-character-playbook" className="hover:text-white transition-colors antialiased">Self help</Link>
           <Link to="/#about" className="hover:text-white transition-colors antialiased">About</Link>
           <Link to="/#connect" className="hover:text-white transition-colors antialiased">Connect</Link>
           <button
@@ -559,8 +557,6 @@ export default function App() {
       >
         <nav className="flex flex-col gap-6 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <Link to="/#books" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Books</Link>
-          <Link to="/books/empty-world" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>An Empty World With You</Link>
-          <Link to="/books/main-character-playbook" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>The Main Character Playbook</Link>
           <Link to="/#about" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>About</Link>
           <Link to="/#connect" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
           <button
@@ -897,7 +893,11 @@ export default function App() {
         <div className="max-w-3xl mx-auto text-center">
           <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-brand-gold block mb-1">Get in touch</span>
           <h2 className="text-2xl md:text-3xl font-display text-white">Connect with Jemima</h2>
-          <a href="mailto:Jemslivingg@gmail.com" className="mt-6 inline-block text-white font-medium hover:text-brand-gold transition-colors underline underline-offset-4">
+          <a
+            href="mailto:Jemslivingg@gmail.com"
+            className="mt-6 inline-block text-white text-lg md:text-xl font-semibold italic hover:text-brand-gold transition-colors underline underline-offset-4 tracking-[0.02em]"
+            style={{ fontFamily: '"Times New Roman", "Georgia", serif' }}
+          >
             Jemslivingg@gmail.com
           </a>
         </div>
