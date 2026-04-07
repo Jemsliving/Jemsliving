@@ -24,6 +24,8 @@ import jemimaPortrait from "./assets/Jemima ceesay.jpeg";
 import Publishing from "./pages/Publishing";
 import Privacy from "./pages/Privacy";
 import Welcome from "./pages/Welcome";
+import EmptyWorld from "./pages/EmptyWorld";
+import MainCharacterPlaybook from "./pages/MainCharacterPlaybook";
 import NewsletterForm from "./components/NewsletterForm";
 
 function PublishingComingSoon() {
@@ -72,6 +74,16 @@ interface Book {
   }[];
 }
 
+interface ReaderTestimonial {
+  quote: string;
+  name: string;
+  bookTitle: string;
+  platform?: string;
+  rating?: number;
+  ratingLabel?: string;
+  isFeatured?: boolean;
+}
+
 const BOOKS: Book[] = [
   {
     id: "empty-world",
@@ -87,7 +99,7 @@ const BOOKS: Book[] = [
       { author: "Mia", text: "6 MILLION STARS!!! I don't usually read dystopians but this one had me hooked. The short chapters made it digestible, the characters were lovely, AND THE DOG!!! I'm in literal shambles from the ending, just WOW. Lo + Dexter forever.", rating: 5 }
     ],
     links: {
-      amazon: "https://www.amazon.com/Empty-World-You-dystopian-survival/dp/9153151283",
+      amazon: "https://amzn.to/3PLAx01",
       barnesAndNoble: "https://www.barnesandnoble.com/s/An+Empty+World+With+You+Jemima+Ceesay",
       waterstones: "https://www.waterstones.com/books/search/term/an+empty+world+with+you+jemima+ceesay",
       adlibris: "https://www.adlibris.com/se/sok?q=jemima+ceesay",
@@ -104,8 +116,76 @@ const BOOKS: Book[] = [
     accentColor: "bg-brand-sage",
     reviews: [],
     links: {
-      amazon: "https://www.amazon.com/Main-Character-Playbook-Unapologetically-Rewrite/dp/9153151313"
+      amazon: "https://amzn.to/4seMYid"
     }
+  }
+];
+
+const READER_TESTIMONIALS: ReaderTestimonial[] = [
+  {
+    quote: BOOKS[0].reviews[0].text,
+    name: BOOKS[0].reviews[0].author,
+    bookTitle: BOOKS[0].title,
+    platform: "Amazon",
+    rating: 5,
+    isFeatured: true
+  },
+  {
+    quote: BOOKS[0].reviews[1].text,
+    name: BOOKS[0].reviews[1].author,
+    bookTitle: BOOKS[0].title,
+    platform: "Amazon",
+    rating: 5,
+    isFeatured: true
+  },
+  {
+    quote: "4.5 stars. I am dehydrated. I would not wish such heartbreak on my worst enemy. And the ending. My jaw was on the floor. I liked the style and atmosphere. There is a lot of inner monologue, which I loved. I am a big fan of post-apocalyptic books and movies, so I was instantly hooked. At the beginning there were things that I thought were weird and non-realistic, but trust me it all ties together at the end. I would have loved it more if there was a more coherent explanation on what happened, but I also lowkey like that it is open to interpretation.",
+    name: "Alexandra",
+    bookTitle: BOOKS[0].title,
+    platform: "Goodreads",
+    ratingLabel: "4.5 stars"
+  },
+  {
+    quote: "Ohh, how I love having my heart broken... 5 stars.",
+    name: "Britt de Korte",
+    bookTitle: BOOKS[0].title,
+    platform: "Goodreads",
+    rating: 5
+  },
+  {
+    quote: "Beautifully written. I was looking for something a little outside of normal read and I am so glad I stumbled upon this book. Jemima wrote a beautiful story. Although it was fast-paced and short, I was drawn in by the characters and her writing. Definitely did not see the ending coming but it really tied the story up nicely. Can not wait to read more of her works!",
+    name: "Kayla",
+    bookTitle: BOOKS[0].title,
+    platform: "Goodreads",
+    rating: 3
+  },
+  {
+    quote: "I devoured this book in less than a day. The writing is so easy to follow and takes you on the adventure with the main character. You will feel all the feels in this book. I love that it is quick and that the plot twist got me good! The author is super sweet. I DM'd her on TikTok letting her know I loved the book and she responded so quick and was very humble and kind. I cannot wait to read more of her writing in the future.",
+    name: "Reader",
+    bookTitle: BOOKS[0].title,
+    platform: "Goodreads",
+    rating: 5
+  },
+  {
+    quote: "This book's descriptions are honestly amazing. Yes, they can be heavy or lengthy at times, but I did not mind that because a high majority of the time they were beautiful descriptions. Despite only being 160 pages, this did not feel rushed to me at all, but I would have liked to see more interactions between the two characters and how their banter built. The ending honestly had me in tears. Partial mixed feelings about the very end, but in my opinion it was handled in a much better way than some books like this are. I loved this book a lot and definitely recommend this if you are looking for a short, cozy, beautifully described dystopian post-apocalyptic vibe book.",
+    name: "starry skies",
+    bookTitle: BOOKS[0].title,
+    platform: "Goodreads",
+    rating: 5
+  },
+  {
+    quote: "Honestly, thank you so much for writing this book, it changed my POV on almost everything that is going on in my life and it made me calm. I wish I stumbled upon this book at least 5 months ago. but I am still glad that somehow (i don't remember how) found this book and decided to read it right away. you are an amazing writer and although this book is easy read, it still carried so much depth. keep writing. 🫶🩷",
+    name: "Melli",
+    bookTitle: BOOKS[1].title,
+    platform: "Goodreads",
+    rating: 5
+  },
+  {
+    quote: "Some books reshape the way you see people and handle situations and this book is one of those. After reading, I knew I had to go on a personal retreat to change a lot of things about my life and to think it was written by a 23 year old! Girl, wow!!",
+    name: "Books So Fly",
+    bookTitle: BOOKS[1].title,
+    platform: "Goodreads",
+    rating: 4
   }
 ];
 
@@ -135,6 +215,9 @@ export default function App() {
   const [openReviewBookId, setOpenReviewBookId] = useState<string | null>(null);
   const [soundtrackBook, setSoundtrackBook] = useState<Book | null>(null);
   const [publishingComingSoonOpen, setPublishingComingSoonOpen] = useState(false);
+  const [expandedReviews, setExpandedReviews] = useState<Record<string, boolean>>({
+    "main-character": true
+  });
 
   const handleHeroNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -427,18 +510,24 @@ export default function App() {
             <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
           ) : (
             <div className="flex flex-col">
-              <span className="font-serif text-base md:text-lg tracking-[0.18em] uppercase leading-tight text-white font-semibold antialiased">Jemsliving Publishing</span>
+              <div className="flex items-center gap-2 md:gap-3 leading-tight">
+                <span className="font-serif text-base md:text-lg tracking-[0.18em] uppercase text-white font-semibold antialiased">Jemsliving Publishing</span>
+                <span className="text-white/60 text-sm md:text-base">|</span>
+                <span
+                  className="font-serif text-sm md:text-base uppercase tracking-[0.24em] text-white font-semibold antialiased"
+                  style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}
+                >
+                  Jemima Ceesay
+                </span>
+              </div>
               <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-white/85 mt-1 italic antialiased">Built by an author, for authors.</span>
             </div>
           )}
         </Link>
-        {!isStandalonePage && (
-          <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
-            <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
-          </div>
-        )}
-        <div className="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
+        <div className="hidden lg:flex gap-5 xl:gap-8 text-[10px] xl:text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <Link to="/#books" className="hover:text-white transition-colors antialiased">Books</Link>
+          <Link to="/books/empty-world" className="hover:text-white transition-colors antialiased">Fiction</Link>
+          <Link to="/books/main-character-playbook" className="hover:text-white transition-colors antialiased">Self help</Link>
           <Link to="/#about" className="hover:text-white transition-colors antialiased">About</Link>
           <Link to="/#connect" className="hover:text-white transition-colors antialiased">Connect</Link>
           <button
@@ -453,7 +542,7 @@ export default function App() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden p-2 -mr-2 text-white hover:text-brand-gold transition-colors"
+          className="lg:hidden p-2 -mr-2 text-white hover:text-brand-gold transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -463,13 +552,15 @@ export default function App() {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden fixed left-0 right-0 z-40 pt-6 pb-8 px-6 bg-brand-bg border-b border-white/15 transform transition-transform duration-200 ease-out ${
+        className={`lg:hidden fixed left-0 right-0 z-40 pt-6 pb-8 px-6 bg-brand-bg border-b border-white/15 transform transition-transform duration-200 ease-out ${
           mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
         style={{ top: "77px" }}
       >
         <nav className="flex flex-col gap-6 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <Link to="/#books" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Books</Link>
+          <Link to="/books/empty-world" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>An Empty World With You</Link>
+          <Link to="/books/main-character-playbook" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>The Main Character Playbook</Link>
           <Link to="/#about" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>About</Link>
           <Link to="/#connect" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
           <button
@@ -489,7 +580,7 @@ export default function App() {
       {/* Mobile menu backdrop */}
       {mobileMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 z-30 bg-black/50"
+          className="lg:hidden fixed inset-0 z-30 bg-black/50"
           onClick={() => setMobileMenuOpen(false)}
           aria-hidden="true"
         />
@@ -499,6 +590,8 @@ export default function App() {
 
       <Routes>
         <Route path="/publishing" element={<PublishingComingSoon />} />
+        <Route path="/books/empty-world" element={<EmptyWorld />} />
+        <Route path="/books/main-character-playbook" element={<MainCharacterPlaybook />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/" element={<>
@@ -595,7 +688,7 @@ export default function App() {
             >
               <div 
                 onClick={() => setSelectedBook(book)}
-                className={`relative w-full md:w-48 shrink-0 aspect-[2/3] overflow-hidden rounded-xl shadow-xl cursor-pointer ${book.id === 'main-character' ? 'bg-[#1a1a1a]' : ''}`}
+                className={`relative w-40 sm:w-48 md:w-48 shrink-0 aspect-[2/3] overflow-hidden rounded-xl shadow-xl cursor-pointer ${book.id === 'main-character' ? 'bg-[#1a1a1a]' : ''}`}
               >
                 <img 
                   src={book.coverUrl} 
@@ -641,6 +734,84 @@ export default function App() {
               </div>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* Social Proof Section */}
+      <section id="social-proof" className="py-24 px-6 border-t border-white/5 bg-brand-bg">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-3xl">
+            <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-brand-gold mb-2 block">Loved by readers worldwide</span>
+            <h2 className="text-4xl md:text-5xl font-display tracking-tight text-brand-text">What Readers Are Saying</h2>
+            <p className="mt-3 text-brand-accent/80 text-lg">Thousands of readers have discovered these stories.</p>
+          </div>
+
+          <div className="mt-12 space-y-14">
+            {BOOKS.map((book) => (
+              <div key={book.id} className="space-y-5">
+                <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
+                  <h3 className="text-xl md:text-2xl font-display text-brand-text">{book.title}</h3>
+                  <span className="text-[9px] uppercase tracking-[0.2em] font-bold text-white/45">{book.genre}</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {READER_TESTIMONIALS.filter((review) => review.bookTitle === book.title && review.isFeatured).map((review, index) => (
+                    <article key={`${book.id}-${review.name}-${index}`} className="border border-white/12 bg-white/[0.03] p-6">
+                      <p className="text-sm italic text-brand-accent/90 leading-relaxed">&ldquo;{review.quote}&rdquo;</p>
+                      <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-bold text-brand-gold">{review.name}</p>
+                          {review.platform && (
+                            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/45">{review.platform}</p>
+                          )}
+                        </div>
+                        {review.ratingLabel && <p className="text-xs text-white/70">{review.ratingLabel}</p>}
+                        {!review.ratingLabel && typeof review.rating === "number" && (
+                          <p className="text-xs text-white/70">{`${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}`}</p>
+                        )}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                {READER_TESTIMONIALS.filter((review) => review.bookTitle === book.title && !review.isFeatured).length > 0 && (
+                  <div className="mt-5 border border-white/12 bg-white/[0.02] p-5">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedReviews((prev) => ({
+                          ...prev,
+                          [book.id]: !prev[book.id]
+                        }))
+                      }
+                      className="text-[11px] uppercase tracking-[0.2em] font-bold text-white/65 hover:text-white"
+                    >
+                      {expandedReviews[book.id] ? "Hide Reader Notes" : "More Reader Notes"}
+                    </button>
+                    {expandedReviews[book.id] && (
+                      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {READER_TESTIMONIALS.filter((review) => review.bookTitle === book.title && !review.isFeatured).map((review, index) => (
+                          <article key={`${book.id}-more-${review.name}-${index}`} className="border border-white/10 bg-white/[0.02] p-5">
+                            <p className="text-sm italic text-brand-accent/90 leading-relaxed">&ldquo;{review.quote}&rdquo;</p>
+                            <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between gap-3">
+                              <div>
+                                <p className="text-sm font-bold text-brand-gold">{review.name}</p>
+                                {review.platform && <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/45">{review.platform}</p>}
+                              </div>
+                              {review.ratingLabel && <p className="text-xs text-white/70">{review.ratingLabel}</p>}
+                              {!review.ratingLabel && typeof review.rating === "number" && (
+                                <p className="text-xs text-white/70">{`${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}`}</p>
+                              )}
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
