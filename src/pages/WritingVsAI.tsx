@@ -21,59 +21,51 @@ export default function WritingVsAI() {
 
           <article className="space-y-6 text-[17px] md:text-lg leading-[1.75] text-neutral-900 font-serif font-medium antialiased">
             <p className="text-xl md:text-2xl font-serif italic font-semibold text-black leading-snug">
-              What do we think about AI? Especially, what do we think about AI in book writing?
+              What do we think about AI? In particular, what do we think about AI in book writing?
             </p>
 
             <p>
-              As a writer and at the beginning of my use of AI, I didn&apos;t understand the problems with it at all. I, like many others, thought that it was an incredibly smart tool that could take everything to a new level.
+              I want to encourage more people to hold on to all the incredible things that only we humans do and all the talent that each of us has. However you choose to use AI, it is important not to let it take over your creativity and steal other people&apos;s ideas. I know for myself how tough it would have been to discover parts of my own ideas and stories in someone else&apos;s work. And today I don&apos;t know how protected my creativity is from it.
             </p>
 
             <p>
-              Producing books that are 100% based on AI is wrong and I think more and more people are realizing that. AI generates texts but also images based on the work of others. This has also ruined it for many authors out there, especially indie authors who even before AI had incredibly tough challenges like wearing all the hats themselves.
+              Personally, I do not believe books should be primarily created by AI, and I think more and more people are beginning to question where the line should be drawn between creative support tools and replacing human creativity entirely.
             </p>
 
             <p>
-              Today, unfortunately, there are a lot of books, too many books that are completely AI produced, that are taking over several book platforms and contributing to the decline of indie authors&apos; books as many now see this category as something that is mostly &quot;mass produced&quot;.
+              It also destroys and complicates the situation for many authors out there, especially indie authors who even before AI had incredibly tough challenges such as having to wear all the hats themselves.
             </p>
 
             <p>
-              Writing books is an art and it&apos;s not just about money, for many authors including me it&apos;s about sharing their experiences and worlds that they&apos;ve often been carrying around for many, many years.
+              Today, unfortunately, there are many books that are completely AI-produced, taking over several book platforms and contributing to the decline of books by indie authors as many now see this category as something that is mostly &quot;mass-produced&quot;.
             </p>
 
             <p>
-              I can guarantee you that there are many authors who have used AI and who use AI, sometimes just to brainstorm ideas or to get help with grammar while others let AI control a very large part of their book. This is also something the majority will never admit as this threatens their books, brand and future as authors.
+              Writing books is an art and it is not just about money, for many writers including me it is about sharing their experiences and worlds that they have often carried around for many, many years.
             </p>
 
             <p>
-              However, this is where I felt torn, is it completely wrong to use AI for minor things like grammar? Translation? Tips and information on how to write a book and publish one?
+              Like many others at the beginning of AI becoming more accessible, I initially viewed it mostly as a helpful creative tool. Since I had no budget at the time, I experimented with AI-generated cover concepts for my book before later becoming more interested in creating and developing things in a more personal and human way instead.
             </p>
 
             <p>
-              Although the strong opinions against the use of AI exist and that some can go so far as to try to destroy someone&apos;s brand because of it, many apps, platforms and companies in their entirety are introducing AI into their services and products whether you want it or not.
+              I am very inspired and have started throwing myself into everything possible, including creating my own book covers and just doing my absolute best to create something on my own, which I think is much more fun anyway.
             </p>
 
             <p>
-              AI is not something that should replace you and your work completely, especially all the human things like creativity and I strongly believe that everything that is 95-100% human created in the future will be more appreciated and a thousand times more valuable.
-            </p>
-
-            <p>
-              When I just published my books I used previous AI tools to create cover art and also for grammar and translation, which I will no longer do. I strongly believe that it is better to learn all the different skills in a human way as we will definitely have less of these skills in the future as people don&apos;t think they will need them. But also because your own work deserves it. And that is what I strive to encourage and help other authors with, to do most of it on their own.
-            </p>
-
-            <p>
-              That said, it is extremely important to teach and educate instead of scaring people, some simply have no idea about the problem and not everyone has the resources to pay others to do what AI can do. There is also a big difference in my opinion between people who mass produce 100+ books a month and people who polish their own work.
-            </p>
-
-            <p>
-              It is very important not to accuse someone of using AI if you are not 100% sure as it can ruin someone&apos;s career. One tip is to contact the author in question or do more research.
+              I strongly believe that in the future, work that is genuinely human-made will be appreciated far more and become significantly more valuable.
             </p>
 
             <p className="pt-8 mt-2 border-t border-neutral-200 text-neutral-900">
-              If you are an editor, translator or book cover creator who does not use AI, please contact me via email at{" "}
+              If you are an editor, translator or book cover designer who does not use AI, please contact me via email at{" "}
               <a href="mailto:Jemslivingg@gmail.com" className="text-black underline underline-offset-[3px] decoration-neutral-400 hover:decoration-neutral-900">
                 Jemslivingg@gmail.com
               </a>{" "}
               for possible collaboration in the future.
+            </p>
+
+            <p className="italic text-neutral-600">
+              Stay tuned for the future.
             </p>
           </article>
         </div>
