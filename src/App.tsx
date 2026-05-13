@@ -7,7 +7,6 @@ import { motion } from "motion/react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { 
   BookOpen, 
-  ExternalLink, 
   ChevronRight,
   Send,
   Music,
@@ -38,12 +37,12 @@ function PublishingComingSoon() {
         <h1 className="text-3xl md:text-4xl font-display text-white tracking-[0.2em] uppercase">
           Publishing
         </h1>
-        <p className="text-lg md:text-xl font-display text-brand-gold tracking-[0.15em] uppercase">
-          Coming Soon
+        <p className="text-lg md:text-xl font-display text-brand-gold tracking-[0.12em] uppercase">
+          Anticipated 2027–2028
         </p>
         <div className="h-px w-12 mx-auto bg-white/20" />
         <p className="text-brand-accent/90 text-base md:text-lg leading-relaxed font-sans">
-          Jemsliving Publishing is currently in development. A new platform for authors will launch in 2026.
+          Jemsliving Publishing is in development, with services planned to roll out between 2027 and 2028. We will share a detailed timeline as milestones are confirmed.
         </p>
         <p className="text-sm text-brand-accent/60 italic">
           Built by an author, for authors.
@@ -213,7 +212,6 @@ export default function App() {
   }, [location.pathname, location.hash]);
   const [email, setEmail] = useState("");
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openReviewBookId, setOpenReviewBookId] = useState<string | null>(null);
   const [soundtrackBook, setSoundtrackBook] = useState<Book | null>(null);
@@ -233,125 +231,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen selection:bg-brand-accent selection:text-brand-bg">
-      {/* Book Modal */}
-      {selectedBook && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedBook(null)}
-            className="absolute inset-0 bg-brand-bg/95 backdrop-blur-xl"
-          />
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="relative w-full max-w-4xl bg-brand-section border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row md:max-h-[90vh]"
-          >
-            <button 
-              onClick={() => setSelectedBook(null)}
-              className="absolute top-6 right-6 p-2 bg-white/5 border border-white/10 rounded-full text-brand-accent hover:text-white transition-colors z-10"
-            >
-              <X size={20} />
-            </button>
-
-            <div className="w-full md:w-2/5 shrink-0 aspect-[2/3] md:aspect-[2/3] md:max-h-[90vh]">
-              <img src={selectedBook.coverUrl} alt={selectedBook.title} className="w-full h-full object-cover object-top" />
-            </div>
-
-            <div className="p-6 md:p-8 space-y-5 flex-1 min-h-0 overflow-y-auto flex flex-col">
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-gold mb-1 block">{selectedBook.genre}</span>
-                <h2 className="text-2xl md:text-4xl font-display text-brand-text leading-tight">{selectedBook.title}</h2>
-                <p className="text-lg font-serif font-medium text-brand-accent mt-1">{selectedBook.subtitle}</p>
-              </div>
-
-              <div className="space-y-2 -mt-1">
-                <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Buy now</h4>
-                <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2">
-                  <a href={selectedBook.links.amazon} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#FF9900] hover:bg-[#ffad33] text-black rounded-xl text-base font-bold transition-colors shadow-lg">
-                    <img src="https://logo.clearbit.com/amazon.com" alt="" className="w-6 h-6 object-contain" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-                    <span>Buy on Amazon</span>
-                    <ExternalLink size={16} />
-                  </a>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedBook.links.barnesAndNoble && (
-                      <a href={selectedBook.links.barnesAndNoble} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2 bg-white/5 border border-white/10 text-white rounded-lg text-[10px] font-bold uppercase tracking-wider hover:bg-white hover:text-brand-bg transition-colors">
-                        <img src="https://logo.clearbit.com/barnesandnoble.com" alt="" className="w-4 h-4 object-contain" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-                        B&N
-                      </a>
-                    )}
-                    {selectedBook.links.waterstones && (
-                      <a href={selectedBook.links.waterstones} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2 bg-white/5 border border-white/10 text-white rounded-lg text-[10px] font-bold uppercase tracking-wider hover:bg-white hover:text-brand-bg transition-colors">
-                        <img src="https://logo.clearbit.com/waterstones.com" alt="" className="w-4 h-4 object-contain" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-                        Waterstones
-                      </a>
-                    )}
-                    {selectedBook.links.adlibris && (
-                      <a href={selectedBook.links.adlibris} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2 bg-white/5 border border-white/10 text-white rounded-lg text-[10px] font-bold uppercase tracking-wider hover:bg-white hover:text-brand-bg transition-colors">
-                        <img src="https://logo.clearbit.com/adlibris.com" alt="" className="w-4 h-4 object-contain" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-                        Adlibris
-                      </a>
-                    )}
-                    {selectedBook.links.moreRetailers && (
-                      <a href={selectedBook.links.moreRetailers} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2 bg-white/5 border border-white/10 text-white rounded-lg text-[10px] font-bold uppercase tracking-wider hover:bg-white hover:text-brand-bg transition-colors">
-                        <ExternalLink size={12} />
-                        More
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Story Overview</h4>
-                  <p className="text-sm leading-relaxed text-brand-accent/80">
-                    {selectedBook.description}
-                  </p>
-                </div>
-
-                {selectedBook.spotifyUrl && (
-                  <div className="space-y-3 pt-3 border-t border-white/10">
-                    <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#1DB954]">Official Soundtrack</h4>
-                    <p className="text-sm text-brand-accent/80 leading-relaxed">
-                      Fun fact 🎈 The playlist was the emotional backdrop of the novel. &ldquo;The Night We Met&rdquo; by Lord Huron played on repeat through some of its most defining chapters.
-                    </p>
-                    <a
-                      href={selectedBook.spotifyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#1DB954] text-black text-[11px] font-bold uppercase tracking-widest hover:bg-[#1ED760] transition-colors"
-                    >
-                      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                      </svg>
-                      Listen on Spotify
-                    </a>
-                  </div>
-                )}
-
-                {selectedBook.reviews.length > 0 && (
-                  <div className="space-y-3 pt-3 border-t border-white/10">
-                    <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-gold">Reader Reviews</h4>
-                    <div className="space-y-3 max-h-56 overflow-y-auto pr-1">
-                      {selectedBook.reviews.map((review, i) => (
-                        <div key={i} className="space-y-1 pb-3 border-b border-white/5 last:border-0 last:pb-0">
-                          <p className="text-sm italic text-brand-accent/90 leading-relaxed">
-                            &ldquo;{review.text}&rdquo;
-                          </p>
-                          <p className="text-xs font-bold text-brand-gold">- {review.author}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      )}
-
       {/* Reviews popup */}
       {openReviewBookId && (() => {
         const book = BOOKS.find((b) => b.id === openReviewBookId);
@@ -469,10 +348,10 @@ export default function App() {
               </button>
             </div>
             <p className="text-lg font-serif text-brand-text/90">
-              Coming soon&nbsp;2026.
+              Anticipated launch: 2027–2028.
             </p>
             <p className="text-sm text-brand-accent/85 leading-relaxed">
-              Jemsliving Publishing services are in development. Sign up for the newsletter to be the first to know when submissions open and new opportunities launch.
+              Jemsliving Publishing is in active development, with a phased rollout planned across 2027 and 2028. Subscribe to the newsletter for confirmed dates, submission windows, and new opportunities as they are announced.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
@@ -493,7 +372,7 @@ export default function App() {
       <nav className="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-brand-bg border-b border-white/15 shadow-md">
         <Link
           to="/"
-          className="flex items-center gap-4 hover:opacity-90 transition-opacity"
+          className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4 hover:opacity-90 transition-opacity"
           onClick={(e) => {
             if (location.pathname === "/") {
               e.preventDefault();
@@ -512,19 +391,24 @@ export default function App() {
           {isStandalonePage ? (
             <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
           ) : (
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2 md:gap-3 leading-tight">
-                <span className="font-serif text-base md:text-lg tracking-[0.18em] uppercase text-white font-semibold antialiased">Jemsliving Publishing</span>
-                <span className="text-white/60 text-sm md:text-base">|</span>
-                <span
-                  className="font-serif text-sm md:text-base uppercase tracking-[0.24em] text-white font-semibold antialiased"
-                  style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}
-                >
-                  Jemima Ceesay
-                </span>
+            <>
+              <div className="hidden min-w-0 flex-col lg:flex">
+                <div className="flex items-center gap-2 md:gap-3 leading-tight">
+                  <span className="font-serif text-base md:text-lg tracking-[0.18em] uppercase text-white font-semibold antialiased">Jemsliving Publishing</span>
+                  <span className="text-white/60 text-sm md:text-base">|</span>
+                  <span
+                    className="font-serif text-sm md:text-base uppercase tracking-[0.24em] text-white font-semibold antialiased"
+                    style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}
+                  >
+                    Jemima Ceesay
+                  </span>
+                </div>
+                <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-white/85 mt-1 italic antialiased">Built by an author, for authors.</span>
               </div>
-              <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-white/85 mt-1 italic antialiased">Built by an author, for authors.</span>
-            </div>
+              <span className="min-w-0 truncate font-serif text-sm uppercase tracking-[0.22em] text-white font-semibold antialiased lg:hidden">
+                Jemsliving
+              </span>
+            </>
           )}
         </Link>
         <div className="hidden lg:flex gap-5 xl:gap-8 text-[10px] xl:text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
@@ -545,7 +429,7 @@ export default function App() {
 
         {/* Mobile menu button */}
         <button
-          className="lg:hidden p-2 -mr-2 text-white hover:text-brand-gold transition-colors"
+          className="lg:hidden shrink-0 p-2 -mr-2 text-white hover:text-brand-gold transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -555,20 +439,33 @@ export default function App() {
 
       {/* Mobile menu */}
       <div
-        className={`lg:hidden fixed left-0 right-0 z-40 pt-6 pb-8 px-6 bg-brand-bg border-b border-white/15 transform transition-transform duration-200 ease-out ${
+        className={`lg:hidden fixed left-0 right-0 z-40 max-h-[calc(100vh-77px)] supports-[height:100dvh]:max-h-[calc(100dvh-77px)] overflow-y-auto overscroll-y-contain border-b border-white/15 bg-brand-bg touch-pan-y transform transition-transform duration-200 ease-out ${
           mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
         style={{ top: "77px" }}
       >
-        <nav className="flex flex-col gap-6 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
-          <Link to="/#books" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Books</Link>
-          <Link to="/#about" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>About</Link>
-          <Link to="/writing-vs-ai" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Writing vs AI</Link>
-          <Link to="/arc-readers" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>ARC readers</Link>
-          <Link to="/#connect" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
+        <nav
+          className="mx-auto grid w-full max-w-md grid-cols-1 gap-x-8 gap-y-0.5 px-4 py-4 min-[400px]:grid-cols-2 min-[400px]:gap-y-1 sm:px-6 sm:py-6 pb-[max(1rem,env(safe-area-inset-bottom,0px))] text-[10px] min-[380px]:text-[11px] uppercase tracking-[0.12em] min-[380px]:tracking-[0.18em] sm:tracking-[0.2em] font-bold text-white/90 antialiased"
+        >
+          {!isStandalonePage && (
+            <div className="col-span-full border-b border-white/10 pb-4 mb-2 -mt-1">
+              <p className="text-[11px] font-semibold tracking-[0.16em] text-white normal-case font-serif">
+                Jemsliving Publishing <span className="text-white/45 font-sans">|</span>{" "}
+                <span className="uppercase tracking-[0.2em]">Jemima Ceesay</span>
+              </p>
+              <p className="text-[10px] font-medium tracking-[0.14em] text-white/75 mt-2 italic font-sans normal-case">
+                Built by an author, for authors.
+              </p>
+            </div>
+          )}
+          <Link to="/#books" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>Books</Link>
+          <Link to="/#about" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>About</Link>
+          <Link to="/writing-vs-ai" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center leading-snug min-[400px]:py-2.5 min-[400px]:col-span-2" onClick={() => setMobileMenuOpen(false)}>Writing vs AI</Link>
+          <Link to="/arc-readers" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>ARC readers</Link>
+          <Link to="/#connect" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
           <button
             type="button"
-            className="hover:text-brand-gold transition-colors py-2 text-left"
+            className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center text-left min-[400px]:py-2.5"
             onClick={() => {
               setMobileMenuOpen(false);
               setPublishingComingSoonOpen(true);
@@ -576,7 +473,7 @@ export default function App() {
           >
             Publishing
           </button>
-          <Link to="/#newsletter" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Newsletter</Link>
+          <Link to="/#newsletter" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5 min-[400px]:col-span-2" onClick={() => setMobileMenuOpen(false)}>Newsletter</Link>
         </nav>
       </div>
 
@@ -682,7 +579,7 @@ export default function App() {
                   </form>
                 )}
                 <a href="#books" className="inline-block mt-4 text-brand-bg/70 hover:text-brand-bg text-sm font-medium underline underline-offset-2">
-                  Or shop the books →
+                  View the collection →
                 </a>
               </div>
             </div>
@@ -700,7 +597,7 @@ export default function App() {
         <div className="mb-12">
           <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-brand-gold mb-2 block">The Collection</span>
           <h2 className="text-4xl md:text-5xl font-display tracking-tight text-brand-text">Published Works</h2>
-          <p className="mt-3 text-brand-accent/80 text-lg">Stories that resonate. Get your copy today.</p>
+          <p className="mt-3 text-brand-accent/80 text-lg">Stories that resonate. Both titles are being revised; purchase links will return when new editions are ready.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
@@ -714,8 +611,7 @@ export default function App() {
               className="flex flex-col md:flex-row gap-8 items-start group h-full"
             >
               <div 
-                onClick={() => setSelectedBook(book)}
-                className={`relative w-40 sm:w-48 md:w-48 shrink-0 aspect-[2/3] overflow-hidden rounded-xl shadow-xl cursor-pointer ${book.id === 'main-character' ? 'bg-[#1a1a1a]' : ''}`}
+                className={`relative w-40 sm:w-48 md:w-48 shrink-0 aspect-[2/3] overflow-hidden rounded-xl shadow-xl ${book.id === 'main-character' ? 'bg-[#1a1a1a]' : ''}`}
               >
                 <img 
                   src={book.coverUrl} 
@@ -739,24 +635,6 @@ export default function App() {
                   <p className="text-sm leading-relaxed text-brand-accent/85 line-clamp-4">
                     {book.description}
                   </p>
-                </div>
-
-                <div className="mt-auto flex flex-row items-center gap-4 flex-nowrap pt-4">
-                  <a
-                    href={book.links.amazon}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FF9900] hover:bg-[#ffad33] text-black font-bold rounded-full text-[11px] uppercase tracking-wider transition-colors"
-                  >
-                    Buy on Amazon
-                    <ExternalLink size={14} />
-                  </a>
-                  <button
-                    onClick={() => setSelectedBook(book)}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-3 border border-white/30 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors"
-                  >
-                    More details
-                  </button>
                 </div>
               </div>
             </motion.div>
