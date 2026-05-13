@@ -28,6 +28,7 @@ import EmptyWorld from "./pages/EmptyWorld";
 import MainCharacterPlaybook from "./pages/MainCharacterPlaybook";
 import WritingVsAI from "./pages/WritingVsAI";
 import ArcReaders from "./pages/ArcReaders";
+import ForAuthors from "./pages/ForAuthors";
 import NewsletterForm from "./components/NewsletterForm";
 
 function PublishingComingSoon() {
@@ -391,61 +392,40 @@ export default function App() {
           {isStandalonePage ? (
             <span className="font-serif text-white uppercase text-base tracking-[0.26em] font-semibold antialiased" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}>Jemima Ceesay</span>
           ) : (
-            <>
-              <div className="hidden min-w-0 flex-col lg:flex">
-                <div className="flex items-center gap-2 md:gap-3 leading-tight">
-                  <span className="font-serif text-base md:text-lg tracking-[0.18em] uppercase text-white font-semibold antialiased">Jemsliving Publishing</span>
-                  <span className="text-white/60 text-sm md:text-base">|</span>
-                  <span
-                    className="font-serif text-sm md:text-base uppercase tracking-[0.24em] text-white font-semibold antialiased"
-                    style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.5)' }}
-                  >
-                    Jemima Ceesay
-                  </span>
-                </div>
-                <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-white/85 mt-1 italic antialiased">Built by an author, for authors.</span>
-              </div>
-              <span className="min-w-0 truncate font-serif text-sm uppercase tracking-[0.22em] text-white font-semibold antialiased lg:hidden">
-                Jemsliving
-              </span>
-            </>
+            <span className="min-w-0 truncate font-serif text-sm sm:text-base uppercase tracking-[0.22em] text-white font-semibold antialiased">
+              Jemsliving
+            </span>
           )}
         </Link>
-        <div className="hidden lg:flex gap-5 xl:gap-8 text-[10px] xl:text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
-          <Link to="/#books" className="hover:text-white transition-colors antialiased">Books</Link>
-          <Link to="/#about" className="hover:text-white transition-colors antialiased">About</Link>
-          <Link to="/writing-vs-ai" className="hover:text-white transition-colors antialiased">Writing vs AI</Link>
-          <Link to="/arc-readers" className="hover:text-white transition-colors antialiased">ARC readers</Link>
-          <Link to="/#connect" className="hover:text-white transition-colors antialiased">Connect</Link>
-          <button
-            type="button"
-            onClick={() => setPublishingComingSoonOpen(true)}
-            className="hover:text-white transition-colors antialiased"
-          >
-            Publishing
-          </button>
-          <Link to="/#newsletter" className="hover:text-white transition-colors antialiased">Newsletter</Link>
-        </div>
 
-        {/* Mobile menu button */}
-        <button
-          className="lg:hidden shrink-0 p-2 -mr-2 text-white hover:text-brand-gold transition-colors"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <span className="text-right leading-tight pr-0.5 hidden min-[400px]:block">
+            <span className="block text-[9px] sm:text-[10px] uppercase tracking-[0.22em] font-bold text-brand-gold/95">
+              Explore
+            </span>
+            <span className="block text-[8px] sm:text-[9px] uppercase tracking-[0.18em] font-semibold text-white/45 mt-0.5 max-w-[5.5rem] sm:max-w-none">
+              Books, tips, publishing
+            </span>
+          </span>
+          <button
+            className="shrink-0 p-2 -mr-2 text-white hover:text-brand-gold transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Site menu (all viewports) */}
       <div
-        className={`lg:hidden fixed left-0 right-0 z-40 max-h-[calc(100vh-77px)] supports-[height:100dvh]:max-h-[calc(100dvh-77px)] overflow-y-auto overscroll-y-contain border-b border-white/15 bg-brand-bg touch-pan-y transform transition-transform duration-200 ease-out ${
+        className={`fixed left-0 right-0 z-40 max-h-[calc(100vh-77px)] supports-[height:100dvh]:max-h-[calc(100dvh-77px)] overflow-y-auto overscroll-y-contain border-b border-white/15 bg-brand-bg touch-pan-y transform transition-transform duration-200 ease-out ${
           mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
         style={{ top: "77px" }}
       >
         <nav
-          className="mx-auto grid w-full max-w-md grid-cols-1 gap-x-8 gap-y-0.5 px-4 py-4 min-[400px]:grid-cols-2 min-[400px]:gap-y-1 sm:px-6 sm:py-6 pb-[max(1rem,env(safe-area-inset-bottom,0px))] text-[10px] min-[380px]:text-[11px] uppercase tracking-[0.12em] min-[380px]:tracking-[0.18em] sm:tracking-[0.2em] font-bold text-white/90 antialiased"
+          className="mx-auto grid w-full max-w-md min-[500px]:max-w-lg min-[900px]:max-w-2xl grid-cols-1 gap-x-8 gap-y-0.5 px-4 py-4 min-[400px]:grid-cols-2 min-[900px]:grid-cols-3 min-[400px]:gap-y-1 sm:px-6 sm:py-6 pb-[max(1rem,env(safe-area-inset-bottom,0px))] text-[10px] min-[380px]:text-[11px] uppercase tracking-[0.12em] min-[380px]:tracking-[0.18em] sm:tracking-[0.2em] font-bold text-white/90 antialiased"
         >
           {!isStandalonePage && (
             <div className="col-span-full border-b border-white/10 pb-4 mb-2 -mt-1">
@@ -461,6 +441,7 @@ export default function App() {
           <Link to="/#books" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>Books</Link>
           <Link to="/#about" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>About</Link>
           <Link to="/writing-vs-ai" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center leading-snug min-[400px]:py-2.5 min-[400px]:col-span-2" onClick={() => setMobileMenuOpen(false)}>Writing vs AI</Link>
+          <Link to="/for-authors" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>For authors</Link>
           <Link to="/arc-readers" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>ARC readers</Link>
           <Link to="/#connect" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
           <button
@@ -477,10 +458,10 @@ export default function App() {
         </nav>
       </div>
 
-      {/* Mobile menu backdrop */}
+      {/* Menu backdrop */}
       {mobileMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-30 bg-black/50"
+          className="fixed inset-0 z-30 bg-black/50"
           onClick={() => setMobileMenuOpen(false)}
           aria-hidden="true"
         />
@@ -494,6 +475,7 @@ export default function App() {
         <Route path="/books/main-character-playbook" element={<MainCharacterPlaybook />} />
         <Route path="/arc-readers" element={<ArcReaders />} />
         <Route path="/writing-vs-ai" element={<WritingVsAI />} />
+        <Route path="/for-authors" element={<ForAuthors />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/" element={<>
@@ -535,7 +517,7 @@ export default function App() {
                     />
                   </div>
                   <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-brand-bg/55 font-semibold">Expanded edition</p>
-                  <p className="mt-1 text-[9px] text-brand-bg/50 leading-snug">Preliminary cover (handmade, no AI)</p>
+                  <p className="mt-1 text-[9px] text-brand-bg/50 leading-snug">Preliminary cover</p>
                 </div>
               </div>
 
