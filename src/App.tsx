@@ -19,6 +19,7 @@ import {
 import React, { useState, useEffect } from "react";
 import logo from "./assets/logo.png";
 import emptyWorldCover from "./assets/An empty world with you.jpeg";
+import emptyWorldExpandedCover from "./assets/empty-world-expanded-edition-cover.png";
 import mainCharacterCover from "./assets/8786A8EB-A81E-4D32-A22E-D1D279502FD6_1_201_a.jpeg";
 import jemimaPortrait from "./assets/Jemima ceesay.jpeg";
 import Publishing from "./pages/Publishing";
@@ -26,6 +27,8 @@ import Privacy from "./pages/Privacy";
 import Welcome from "./pages/Welcome";
 import EmptyWorld from "./pages/EmptyWorld";
 import MainCharacterPlaybook from "./pages/MainCharacterPlaybook";
+import WritingVsAI from "./pages/WritingVsAI";
+import ArcReaders from "./pages/ArcReaders";
 import NewsletterForm from "./components/NewsletterForm";
 
 function PublishingComingSoon() {
@@ -527,6 +530,8 @@ export default function App() {
         <div className="hidden lg:flex gap-5 xl:gap-8 text-[10px] xl:text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <Link to="/#books" className="hover:text-white transition-colors antialiased">Books</Link>
           <Link to="/#about" className="hover:text-white transition-colors antialiased">About</Link>
+          <Link to="/writing-vs-ai" className="hover:text-white transition-colors antialiased">Writing vs AI</Link>
+          <Link to="/arc-readers" className="hover:text-white transition-colors antialiased">ARC readers</Link>
           <Link to="/#connect" className="hover:text-white transition-colors antialiased">Connect</Link>
           <button
             type="button"
@@ -558,6 +563,8 @@ export default function App() {
         <nav className="flex flex-col gap-6 text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
           <Link to="/#books" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Books</Link>
           <Link to="/#about" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>About</Link>
+          <Link to="/writing-vs-ai" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Writing vs AI</Link>
+          <Link to="/arc-readers" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>ARC readers</Link>
           <Link to="/#connect" className="hover:text-brand-gold transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
           <button
             type="button"
@@ -588,6 +595,8 @@ export default function App() {
         <Route path="/publishing" element={<PublishingComingSoon />} />
         <Route path="/books/empty-world" element={<EmptyWorld />} />
         <Route path="/books/main-character-playbook" element={<MainCharacterPlaybook />} />
+        <Route path="/arc-readers" element={<ArcReaders />} />
+        <Route path="/writing-vs-ai" element={<WritingVsAI />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/" element={<>
@@ -601,15 +610,35 @@ export default function App() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative z-10 max-w-4xl mx-auto"
           >
-            <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-14">
-              {/* Book cover + caption */}
-              <div className="shrink-0 w-full max-w-[200px] md:max-w-[220px]">
-                <div className="relative aspect-[2/3] rounded-xl overflow-hidden shadow-2xl ring-1 ring-black/10">
-                  <img
-                    src={emptyWorldCover}
-                    alt="An Empty World With You"
-                    className="w-full h-full object-cover"
-                  />
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-14">
+              {/* Original cover → expanded edition (preliminary) */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 shrink-0">
+                <div className="w-full max-w-[180px] sm:max-w-[200px] text-center sm:text-left">
+                  <div className="relative aspect-[2/3] rounded-xl overflow-hidden shadow-2xl ring-1 ring-black/10">
+                    <img
+                      src={emptyWorldCover}
+                      alt="An Empty World With You, current edition"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-brand-bg/55 font-semibold">Current edition</p>
+                </div>
+
+                <ChevronRight
+                  className="w-9 h-9 sm:w-10 sm:h-10 text-brand-bg/40 shrink-0 rotate-90 sm:rotate-0"
+                  aria-hidden
+                />
+
+                <div className="w-full max-w-[180px] sm:max-w-[200px] text-center sm:text-left">
+                  <div className="relative aspect-[2/3] rounded-xl overflow-hidden shadow-2xl ring-1 ring-black/10">
+                    <img
+                      src={emptyWorldExpandedCover}
+                      alt="An Empty World With You expanded edition, preliminary cover"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-brand-bg/55 font-semibold">Expanded edition</p>
+                  <p className="mt-1 text-[9px] text-brand-bg/50 leading-snug">Preliminary cover (handmade, no AI)</p>
                 </div>
               </div>
 
@@ -619,13 +648,15 @@ export default function App() {
                     THE WORLD EXPANDS
                   </h2>
                   <p className="font-serif italic text-brand-bg/85 text-lg md:text-xl">
-                    Sequel in Progress
+                    Coming soon
                   </p>
                 </div>
 
                 <p className="mx-auto max-w-lg text-brand-bg/70 text-sm md:text-base leading-relaxed">
-                  The next chapter of Lo&rsquo;s journey is currently being written.<br />
-                  Subscribe to receive release updates, exclusive previews, and early access announcements.
+                  I am revising and expanding <span className="italic text-brand-bg/85">An Empty World With You</span> from the ground up so the story gets what it deserves after a year of new experience and all the amazing feedback. The exciting sequel is also in the works and is planned to be released not long after the new expanded version.
+                </p>
+                <p className="mx-auto max-w-lg text-brand-bg/80 text-sm md:text-base font-medium">
+                  Sign up for updates on the expanded edition, the sequel, and early news.
                 </p>
 
                 {formStatus === "success" ? (
@@ -645,7 +676,7 @@ export default function App() {
                       disabled={formStatus === "submitting"}
                       className="shrink-0 rounded-full bg-brand-bg px-6 py-3.5 text-sm font-bold text-white hover:bg-brand-gold hover:text-black transition-colors disabled:opacity-50 uppercase tracking-wider"
                     >
-                      {formStatus === "idle" && "Get early access"}
+                      {formStatus === "idle" && "Sign up for updates"}
                       {formStatus === "submitting" && "..."}
                     </button>
                   </form>
