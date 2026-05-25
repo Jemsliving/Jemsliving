@@ -29,7 +29,11 @@ import MainCharacterPlaybook from "./pages/MainCharacterPlaybook";
 import WritingVsAI from "./pages/WritingVsAI";
 import ArcReaders from "./pages/ArcReaders";
 import ForAuthors from "./pages/ForAuthors";
+import ComingSoon from "./pages/ComingSoon";
 import NewsletterForm from "./components/NewsletterForm";
+
+/** Set to false to restore the full site. */
+const SITE_LOCKED = true;
 
 function PublishingComingSoon() {
   return (
@@ -193,6 +197,10 @@ const READER_TESTIMONIALS: ReaderTestimonial[] = [
 ];
 
 export default function App() {
+  if (SITE_LOCKED) {
+    return <ComingSoon />;
+  }
+
   const location = useLocation();
   const isPublishingPage = location.pathname === "/publishing";
   const isStandalonePage = isPublishingPage || location.pathname === "/privacy";
@@ -440,8 +448,8 @@ export default function App() {
           )}
           <Link to="/#books" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>Books</Link>
           <Link to="/#about" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>About</Link>
-          <Link to="/writing-vs-ai" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center leading-snug min-[400px]:py-2.5 min-[400px]:col-span-2" onClick={() => setMobileMenuOpen(false)}>Writing vs AI</Link>
           <Link to="/for-authors" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>For authors</Link>
+          <Link to="/writing-vs-ai" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center leading-snug min-[400px]:py-2.5 min-[400px]:col-span-2" onClick={() => setMobileMenuOpen(false)}>Writing vs AI</Link>
           <Link to="/arc-readers" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>ARC readers</Link>
           <Link to="/#connect" className="hover:text-brand-gold transition-colors py-3 min-h-[44px] flex items-center min-[400px]:py-2.5" onClick={() => setMobileMenuOpen(false)}>Connect</Link>
           <button
